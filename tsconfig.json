@@ -1,0 +1,18 @@
+{
+  "compilerOptions": {
+    "outDir": "temp",
+    "sourceMap": false,
+    "target": "es2015",
+    "module": "esnext",
+    "noImplicitThis": true,
+    "noImplicitAny": true,
+    "strictNullChecks": true,
+    "moduleResolution": "node",
+    "lib": [
+      "esnext"
+    ]
+  },
+  "include": [
+    "src"
+  ]
+}
