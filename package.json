@@ -1,7 +1,7 @@
 {
   "name": "@mpxjs/mp-api-monitor",
   "version": "0.0.2",
-  "description": "mini program api invoke monitor",
+  "description": "mini program api invoking monitor",
   "main": "dist/index.esm.js",
   "module": "dist/index.esm.js",
   "type": "module",
@@ -13,7 +13,8 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "files": [
-    "dist"
+    "dist",
+    "README.md"
   ],
   "keywords": [
     "miniprogram",
