@@ -64,13 +64,6 @@ interface RecordMeta {
 
 type Stage = 'pre' | 'post'
 
-interface WarningRule {
-  (recordData: RecordDataQueue): void
-
-  stage?: Stage
-}
-
-
 interface DataGen {
   (args: any[]): IAnyObject | void
 }
@@ -125,6 +118,7 @@ interface SizeCfg extends WarningCfg {
 }
 declare function getCountRule(countCfg: CountCfg): WarningRule;
 declare function getParallelismRule(parallelismCfg: ParallelismCfg): WarningRule;
+declare function getRouteParallelismRule(parallelismCfg: ParallelismCfg): WarningRule;
 declare function getErrorRule(errorCfg: ErrorCfg): WarningRule;
 declare function getSizeRule(sizeCfg: SizeCfg): WarningRule;
 declare function getResultSizeRule(sizeCfg: SizeCfg): WarningRule;
@@ -140,6 +134,10 @@ interface Summary {
     request?: IAnyObject;
     api?: IAnyObject;
 }
+interface WarningRule {
+    (recordData: RecordDataQueue, monitor: APIMonitor): void;
+    stage?: Stage;
+}
 declare class APIMonitor {
     recordData: Map<string, RecordDataQueue>;
     isActive: boolean;
@@ -152,7 +150,7 @@ declare class APIMonitor {
     startRecord(clear?: boolean): void;
     endRecord(): void;
     checkWarningRules(type: string, stage?: Stage): void;
-    addWarningRule(type: string, rule: WarningRule, stage?: Stage): void;
+    addWarningRule(types: string | string[], rule: WarningRule, stage?: Stage): void;
     getWarningRules(type: string, stage?: Stage): WarningRule[] | undefined;
     addRecordData(data: RecordData): void;
     updateMeta(type: string, updater: (meta: RecordMeta) => void): void;
@@ -164,4 +162,4 @@ declare class APIMonitor {
     destroy(): void;
 }
 
-export { APIMonitor as default, getCountRule, getCurrentContext, getErrorRule, getParallelismRule, getResultSizeRule, getSizeRule, setCurrentContext, setDataGenerator, unsetCurrentContext };
+export { WarningRule, APIMonitor as default, getCountRule, getCurrentContext, getErrorRule, getParallelismRule, getResultSizeRule, getRouteParallelismRule, getSizeRule, setCurrentContext, setDataGenerator, unsetCurrentContext };

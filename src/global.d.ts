@@ -64,13 +64,6 @@ interface RecordMeta {
 
 type Stage = 'pre' | 'post'
 
-interface WarningRule {
-  (recordData: RecordDataQueue): void
-
-  stage?: Stage
-}
-
-
 interface DataGen {
   (args: any[]): IAnyObject | void
 }

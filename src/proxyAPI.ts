@@ -30,7 +30,8 @@ const syncList = [
   'getMenuButtonBoundingClientRect',
   'reportMonitor',
   'createOffscreenCanvas',
-  'reportEvent'
+  'reportEvent',
+  'nextTick'
 ]
 
 const syncListMap = syncList.reduce<IAnyObject>((acc, cur) => {

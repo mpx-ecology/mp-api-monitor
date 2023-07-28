@@ -24,6 +24,12 @@ interface Summary {
   api?: IAnyObject
 }
 
+export interface WarningRule {
+  (recordData: RecordDataQueue, monitor: APIMonitor): void
+
+  stage?: Stage
+}
+
 export default class APIMonitor {
   recordData = new Map<string, RecordDataQueue>()
   isActive = false
@@ -67,16 +73,19 @@ export default class APIMonitor {
     const recordData = this.getRecordData(type)
     if (warningRules && recordData) {
       warningRules.forEach((warningRule) => {
-        warningRule(recordData)
+        warningRule(recordData, this)
       })
     }
   }
 
-  addWarningRule (type: string, rule: WarningRule, stage: Stage = 'pre') {
-    const warningRulesMap = (rule.stage || stage) === 'pre' ? this.preWarningRules : this.postWarningRules
-    const rules = warningRulesMap.get(type) || []
-    if (!warningRulesMap.has(type)) warningRulesMap.set(type, rules)
-    rules.push(rule)
+  addWarningRule (types: string | string[], rule: WarningRule, stage: Stage = 'pre') {
+    if (typeof types === 'string') types = [types]
+    types.forEach((type) => {
+      const warningRulesMap = (rule.stage || stage) === 'pre' ? this.preWarningRules : this.postWarningRules
+      const rules = warningRulesMap.get(type) || []
+      if (!warningRulesMap.has(type)) warningRulesMap.set(type, rules)
+      rules.push(rule)
+    })
   }
 
   getWarningRules (type: string, stage: Stage = 'pre') {
@@ -156,7 +165,8 @@ export default class APIMonitor {
     const summary: Summary = {}
     if (config.recordSetData) {
       summary.setData = this.getStatistics(['setData'], {
-        groupBy: (data) => data.contextInfo?.is || 'unknown'
+        groupBy: (data) => data.contextInfo?.is || 'unknown',
+        sortBy: (data) => data.size
       })
     }
 

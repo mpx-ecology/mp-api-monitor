@@ -207,7 +207,8 @@ const syncList = [
   "getMenuButtonBoundingClientRect",
   "reportMonitor",
   "createOffscreenCanvas",
-  "reportEvent"
+  "reportEvent",
+  "nextTick"
 ];
 const syncListMap = syncList.reduce((acc, cur) => {
   acc[cur] = true;
@@ -387,16 +388,39 @@ function getCountRule(countCfg) {
 function getParallelismRule(parallelismCfg) {
   return function(recordData) {
     const item = recordData[recordData.length - 1];
-    if (item && recordData.meta.parallelism > parallelismCfg.parallelism) {
+    if (recordData.meta.parallelism > parallelismCfg.parallelism) {
       const msg = `${item.type} api invoking exceeded parallelism limit ${parallelismCfg.parallelism}, please check!`;
       parallelismCfg.onWarning(msg, recordData);
+    }
+  };
+}
+const routeTypes = [
+  "switchTab",
+  "reLaunch",
+  "redirectTo",
+  "navigateTo",
+  "navigateBack"
+];
+function getRouteParallelismRule(parallelismCfg) {
+  return function(recordData, monitor) {
+    let parallelism = 0;
+    const item = recordData[recordData.length - 1];
+    for (let type of routeTypes) {
+      const routeRecordData = monitor.getRecordData(type);
+      if (routeRecordData)
+        parallelism += routeRecordData.meta.parallelism;
+      if (parallelism > parallelismCfg.parallelism) {
+        const msg = `${item.type} api invoking exceeded route parallelism limit ${parallelismCfg.parallelism}, please check!`;
+        parallelismCfg.onWarning(msg, recordData);
+        break;
+      }
     }
   };
 }
 function getErrorRule(errorCfg) {
   const rule = function(recordData) {
     const item = recordData[recordData.length - 1];
-    if (item && (errorCfg.errno ? errorCfg.errno === item.errno : item.errno !== void 0)) {
+    if (errorCfg.errno ? errorCfg.errno === item.errno : item.errno !== void 0) {
       const msg = `${item.type} api invoking with errno ${item.errno}, please check!`;
       errorCfg.onWarning(msg, recordData);
     }
@@ -488,16 +512,20 @@ class APIMonitor {
     const recordData = this.getRecordData(type);
     if (warningRules && recordData) {
       warningRules.forEach((warningRule) => {
-        warningRule(recordData);
+        warningRule(recordData, this);
       });
     }
   }
-  addWarningRule(type, rule, stage = "pre") {
-    const warningRulesMap = (rule.stage || stage) === "pre" ? this.preWarningRules : this.postWarningRules;
-    const rules = warningRulesMap.get(type) || [];
-    if (!warningRulesMap.has(type))
-      warningRulesMap.set(type, rules);
-    rules.push(rule);
+  addWarningRule(types, rule, stage = "pre") {
+    if (typeof types === "string")
+      types = [types];
+    types.forEach((type) => {
+      const warningRulesMap = (rule.stage || stage) === "pre" ? this.preWarningRules : this.postWarningRules;
+      const rules = warningRulesMap.get(type) || [];
+      if (!warningRulesMap.has(type))
+        warningRulesMap.set(type, rules);
+      rules.push(rule);
+    });
   }
   getWarningRules(type, stage = "pre") {
     const warningRulesMap = stage === "pre" ? this.preWarningRules : this.postWarningRules;
@@ -574,7 +602,8 @@ class APIMonitor {
         groupBy: (data) => {
           var _a;
           return ((_a = data.contextInfo) == null ? void 0 : _a.is) || "unknown";
-        }
+        },
+        sortBy: (data) => data.size
       });
     }
     if (config.recordAPI) {
@@ -602,4 +631,4 @@ class APIMonitor {
   }
 }
 
-export { APIMonitor as default, getCountRule, getCurrentContext, getErrorRule, getParallelismRule, getResultSizeRule, getSizeRule, setCurrentContext, setDataGenerator, unsetCurrentContext };
+export { APIMonitor as default, getCountRule, getCurrentContext, getErrorRule, getParallelismRule, getResultSizeRule, getRouteParallelismRule, getSizeRule, setCurrentContext, setDataGenerator, unsetCurrentContext };

@@ -1,3 +1,5 @@
+import { WarningRule } from './index'
+
 interface WarningCfg {
   onWarning: (msg: string, recordData: RecordDataQueue) => void
 }
@@ -39,9 +41,33 @@ export function getCountRule (countCfg: CountCfg): WarningRule {
 export function getParallelismRule (parallelismCfg: ParallelismCfg): WarningRule {
   return function (recordData) {
     const item = recordData[recordData.length - 1]
-    if (item && recordData.meta.parallelism > parallelismCfg.parallelism) {
+    if (recordData.meta.parallelism > parallelismCfg.parallelism) {
       const msg = `${item.type} api invoking exceeded parallelism limit ${parallelismCfg.parallelism}, please check!`
       parallelismCfg.onWarning(msg, recordData)
+    }
+  }
+}
+
+const routeTypes = [
+  'switchTab',
+  'reLaunch',
+  'redirectTo',
+  'navigateTo',
+  'navigateBack'
+]
+
+export function getRouteParallelismRule (parallelismCfg: ParallelismCfg): WarningRule {
+  return function (recordData, monitor) {
+    let parallelism = 0
+    const item = recordData[recordData.length - 1]
+    for (let type of routeTypes) {
+      const routeRecordData = monitor.getRecordData(type)
+      if (routeRecordData) parallelism += routeRecordData.meta.parallelism
+      if (parallelism > parallelismCfg.parallelism) {
+        const msg = `${item.type} api invoking exceeded route parallelism limit ${parallelismCfg.parallelism}, please check!`
+        parallelismCfg.onWarning(msg, recordData)
+        break
+      }
     }
   }
 }
@@ -49,7 +75,7 @@ export function getParallelismRule (parallelismCfg: ParallelismCfg): WarningRule
 export function getErrorRule (errorCfg: ErrorCfg): WarningRule {
   const rule: WarningRule = function (recordData) {
     const item = recordData[recordData.length - 1]
-    if (item && (errorCfg.errno ? errorCfg.errno === item.errno : item.errno !== undefined)) {
+    if (errorCfg.errno ? errorCfg.errno === item.errno : item.errno !== undefined) {
       const msg = `${item.type} api invoking with errno ${item.errno}, please check!`
       errorCfg.onWarning(msg, recordData)
     }
