@@ -1,6 +1,5 @@
-import { byteLength, getContextInfo, getEnvObj, getEnv } from './utils'
-import { getCurrentContext } from './context'
-import { addRecordData, updateMeta, checkWarningRules, getDataGenerator } from './monitor'
+import {getEnvObj, getEnv} from './utils'
+import {addRecordData, updateMeta, checkWarningRules, getDataGenerator} from './monitor'
 
 const envObj = getEnvObj()
 const env = getEnv()
@@ -48,10 +47,40 @@ function isSync (key: string, config: RecordAPIConfig) {
     (config.isAsync && config.isAsync.includes(key))
 }
 
+function __call_trace (depth?: number) {
+  const result: string[] = []
+  try {
+    throw new Error()
+  } catch (e) {
+    if (e.stack) {
+      const stacks = e.stack.split('\n')
+      let start = -1
+      for (let i = 0; i < stacks.length; i++) {
+        const info = stacks[i].trim()
+        if (start === -1) {
+          if (info.includes('__call_trace')) start = i
+          continue
+        } else {
+          if (depth && i - start > depth) break
+          if (info) result.push(info)
+        }
+      }
+    }
+  }
+  return result
+}
+
 let proxyed = false
 
 export function proxyAPI (config: RecordAPIConfig) {
   if (!envObj || proxyed) return
+
+  let stackConfig: StackConfig = {}
+
+  if (config.needStack) {
+    stackConfig = typeof config.needStack === 'boolean' ? {} : config.needStack
+    console.warn('Recording stack info will significantly increase performance overhead, do not enable it unless necessary!')
+  }
 
   Object.keys(envObj).forEach((type: keyof typeof envObj) => {
     if (
@@ -60,60 +89,53 @@ export function proxyAPI (config: RecordAPIConfig) {
     ) return
 
     const original = envObj[type]
-
     if (typeof original !== 'function') return
 
-    let value: (...args: any[]) => any
+    const sync = isSync(type, config)
 
-    if (isSync(type, config)) {
-      // sync
-      value = function (this: typeof envObj, ...args) {
-        const recordData: RecordData = {
-          type,
-          startTime: +new Date()
-        }
-        const preDataGen = getDataGenerator(type)
-        if (preDataGen) {
-          Object.assign(recordData, preDataGen(args))
-        }
+    let needStack = false
+    if (config.needStack) {
+      if (
+        (stackConfig.include && !stackConfig.include.includes(type)) ||
+        (stackConfig.exclude && stackConfig.exclude.includes(type))
+      ) {
+        // skip stack
+      } else {
+        needStack = true
+      }
+    }
 
-        addRecordData(recordData)
+    const value = function (this: typeof envObj, ...args: any[]) {
+      const stackInfo: string[] = needStack ? __call_trace(stackConfig.depth) : []
+      let recordData: RecordData = {
+        type,
+        startTime: +new Date()
+      }
+      if (stackInfo.length) recordData.stack = stackInfo
+      const preDataGen = getDataGenerator(type)
+      if (preDataGen) {
+        Object.assign(recordData, preDataGen(args))
+      }
+      addRecordData(recordData)
 
+      if (sync) {
+        // sync
         checkWarningRules(type)
-
         const result = original.apply(this, args)
-
         recordData.endTime = +new Date()
         recordData.duration = recordData.endTime - recordData.startTime
         const postDataGen = getDataGenerator(type, 'post')
         if (postDataGen) {
           Object.assign(recordData, postDataGen([result]))
         }
-
         checkWarningRules(type, 'post')
-
         return result
-      }
-
-    } else {
-      // async
-      value = function (this: typeof envObj, ...args) {
-        let recordData: RecordData = {
-          type,
-          startTime: +new Date()
-        }
-        const preDataGen = getDataGenerator(type)
-        if (preDataGen) {
-          Object.assign(recordData, preDataGen(args))
-        }
-
-        addRecordData(recordData)
+      } else {
+        //async
         updateMeta(type, (meta) => {
           meta.parallelism++
         })
-
         checkWarningRules(type)
-
         const opt = args[0] || {}
         const successRaw = opt.success
         const failRaw = opt.fail
@@ -128,7 +150,6 @@ export function proxyAPI (config: RecordAPIConfig) {
             meta.parallelism--
           })
           checkWarningRules(type, 'post')
-
           // for gc
           recordData = null as unknown as RecordData
           successRaw && successRaw.apply(this, args)
@@ -143,15 +164,12 @@ export function proxyAPI (config: RecordAPIConfig) {
             recordData.errno = res.errno
             recordData.errMsg = res.errMsg
           }
-
           recordData.endTime = +new Date()
           recordData.duration = recordData.endTime - recordData.startTime
-
           updateMeta(type, (meta) => {
             meta.parallelism--
           })
           checkWarningRules(type, 'post')
-
           // for gc
           recordData = null as unknown as RecordData
           failRaw && failRaw.apply(this, args)

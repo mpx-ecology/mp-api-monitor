@@ -14,7 +14,7 @@ export default {
       tsconfig: new URL('./tsconfig', import.meta.url).href,
       sourceMap: false,
       minify: false,
-      target: 'es2015',
+      target: 'es2015'
     })
   ]
 }

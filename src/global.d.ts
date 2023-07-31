@@ -39,6 +39,7 @@ interface RecordData {
   endTime?: number
   duration?: number
   contextInfo?: ContextInfo
+  stack?: string[]
   size?: number
   resultSize?: number
   errno?: number
@@ -87,7 +88,14 @@ interface StatisticConfig {
 }
 
 interface RecordAPIConfig {
-  include?: string[],
-  exclude?: string[],
+  include?: string[]
+  exclude?: string[]
   isAsync?: string[]
+  needStack?: StackConfig | boolean
+}
+
+interface StackConfig {
+  include?: string[]
+  exclude?: string[]
+  depth?: number
 }

@@ -64,7 +64,6 @@ async function run () {
         message: 'Input custom version',
         initial: currentVersion
       })
-      // @ts-ignore
       targetVersion = result.version
     } else {
       targetVersion = release.match(/\((.*)\)/)[1]

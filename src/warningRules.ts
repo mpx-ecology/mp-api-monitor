@@ -60,7 +60,7 @@ export function getRouteParallelismRule (parallelismCfg: ParallelismCfg): Warnin
   return function (recordData, monitor) {
     let parallelism = 0
     const item = recordData[recordData.length - 1]
-    for (let type of routeTypes) {
+    for (const type of routeTypes) {
       const routeRecordData = monitor.getRecordData(type)
       if (routeRecordData) parallelism += routeRecordData.meta.parallelism
       if (parallelism > parallelismCfg.parallelism) {

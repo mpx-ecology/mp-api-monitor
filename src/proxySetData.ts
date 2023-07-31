@@ -1,6 +1,6 @@
 import { addRecordData, updateMeta, checkWarningRules, getDataGenerator } from './monitor'
 import { getContextInfo, byteLength, getEnv } from './utils'
-
+/* eslint-disable prefer-spread, no-global-assign */
 let proxyed = false
 const env = getEnv()
 const type = 'setData'

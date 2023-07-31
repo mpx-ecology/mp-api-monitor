@@ -40,7 +40,7 @@ function getDataGenerator(type, stage = "pre") {
 function byteLength(str) {
   let s = str.length;
   for (let i = str.length - 1; i >= 0; i--) {
-    let code = str.charCodeAt(i);
+    const code = str.charCodeAt(i);
     if (code > 127 && code <= 2047)
       s++;
     else if (code > 2047 && code <= 65535)
@@ -221,28 +221,67 @@ function isSync(key, config) {
   /\w+Sync$/.test(key) || // 以Sync结尾的方法
   config.isAsync && config.isAsync.includes(key);
 }
+function __call_trace(depth) {
+  const result = [];
+  try {
+    throw new Error();
+  } catch (e) {
+    if (e.stack) {
+      const stacks = e.stack.split("\n");
+      let start = -1;
+      for (let i = 0; i < stacks.length; i++) {
+        const info = stacks[i].trim();
+        if (start === -1) {
+          if (info.includes("__call_trace"))
+            start = i;
+          continue;
+        } else {
+          if (depth && i - start > depth)
+            break;
+          if (info)
+            result.push(info);
+        }
+      }
+    }
+  }
+  return result;
+}
 let proxyed = false;
 function proxyAPI(config) {
   if (!envObj || proxyed)
     return;
+  let stackConfig = {};
+  if (config.needStack) {
+    stackConfig = typeof config.needStack === "boolean" ? {} : config.needStack;
+    console.warn("Recording stack info will significantly increase performance overhead, do not enable it unless necessary!");
+  }
   Object.keys(envObj).forEach((type) => {
     if (config.include && !config.include.includes(type) || config.exclude && config.exclude.includes(type))
       return;
     const original = envObj[type];
     if (typeof original !== "function")
       return;
-    let value;
-    if (isSync(type, config)) {
-      value = function(...args) {
-        const recordData = {
-          type,
-          startTime: +/* @__PURE__ */ new Date()
-        };
-        const preDataGen = getDataGenerator(type);
-        if (preDataGen) {
-          Object.assign(recordData, preDataGen(args));
-        }
-        addRecordData(recordData);
+    const sync = isSync(type, config);
+    let needStack = false;
+    if (config.needStack) {
+      if (stackConfig.include && !stackConfig.include.includes(type) || stackConfig.exclude && stackConfig.exclude.includes(type)) ; else {
+        needStack = true;
+      }
+    }
+    const value = function(...args) {
+      const stackInfo = needStack ? __call_trace(stackConfig.depth) : [];
+      let recordData = {
+        type,
+        startTime: +/* @__PURE__ */ new Date()
+      };
+      if (stackInfo.length)
+        recordData.stack = stackInfo;
+      const preDataGen = getDataGenerator(type);
+      if (preDataGen) {
+        Object.assign(recordData, preDataGen(args));
+      }
+      addRecordData(recordData);
+      if (sync) {
         checkWarningRules(type);
         const result = original.apply(this, args);
         recordData.endTime = +/* @__PURE__ */ new Date();
@@ -253,18 +292,7 @@ function proxyAPI(config) {
         }
         checkWarningRules(type, "post");
         return result;
-      };
-    } else {
-      value = function(...args) {
-        let recordData = {
-          type,
-          startTime: +/* @__PURE__ */ new Date()
-        };
-        const preDataGen = getDataGenerator(type);
-        if (preDataGen) {
-          Object.assign(recordData, preDataGen(args));
-        }
-        addRecordData(recordData);
+      } else {
         updateMeta(type, (meta) => {
           meta.parallelism++;
         });
@@ -306,8 +334,8 @@ function proxyAPI(config) {
         };
         args[0] = opt;
         return original.apply(this, args);
-      };
-    }
+      }
+    };
     Object.defineProperty(envObj, type, {
       value,
       writable: false,
@@ -359,17 +387,6 @@ function initDataGen() {
   }, "post");
 }
 
-let currentContext = void 0;
-function setCurrentContext(context) {
-  currentContext = context;
-}
-function unsetCurrentContext() {
-  currentContext = void 0;
-}
-function getCurrentContext() {
-  return currentContext;
-}
-
 function getCountRule(countCfg) {
   return function(recordData) {
     const now = +/* @__PURE__ */ new Date();
@@ -405,7 +422,7 @@ function getRouteParallelismRule(parallelismCfg) {
   return function(recordData, monitor) {
     let parallelism = 0;
     const item = recordData[recordData.length - 1];
-    for (let type of routeTypes) {
+    for (const type of routeTypes) {
       const routeRecordData = monitor.getRecordData(type);
       if (routeRecordData)
         parallelism += routeRecordData.meta.parallelism;
@@ -532,15 +549,10 @@ class APIMonitor {
     return warningRulesMap.get(type);
   }
   addRecordData(data) {
-    var _a, _b;
     if (this.config.dataLimit) {
       this.dataCount++;
       if (this.dataCount > this.config.dataLimit)
         this.clearData();
-    }
-    const context = getCurrentContext() || ((_b = (_a = this.config).getCurrentContext) == null ? void 0 : _b.call(_a));
-    if (!data.contextInfo && context) {
-      data.contextInfo = getContextInfo(context);
     }
     const dataQueue = this.recordData.get(data.type) || [];
     if (!this.recordData.has(data.type)) {
@@ -631,4 +643,4 @@ class APIMonitor {
   }
 }
 
-export { APIMonitor as default, getCountRule, getCurrentContext, getErrorRule, getParallelismRule, getResultSizeRule, getRouteParallelismRule, getSizeRule, setCurrentContext, setDataGenerator, unsetCurrentContext };
+export { APIMonitor as default, getCountRule, getErrorRule, getParallelismRule, getResultSizeRule, getRouteParallelismRule, getSizeRule, setDataGenerator };

@@ -1,12 +1,10 @@
-import { addMonitor, removeMonitor, setDataGenerator } from './monitor'
-import { proxySetData } from './proxySetData'
-import { proxyAPI } from './proxyAPI'
-import { filterTrue, getContextInfo, groupByType, sortByCount } from './utils'
-import { initDataGen } from './dataGen'
-import { getCurrentContext } from './context'
+import {addMonitor, removeMonitor, setDataGenerator} from './monitor'
+import {proxySetData} from './proxySetData'
+import {proxyAPI} from './proxyAPI'
+import {filterTrue, groupByType, sortByCount} from './utils'
+import {initDataGen} from './dataGen'
 
-export { setDataGenerator }
-export * from './context'
+export {setDataGenerator}
 export * from './warningRules'
 
 initDataGen()
@@ -15,7 +13,6 @@ interface InitialConfig {
   recordSetData?: boolean
   recordAPI?: boolean | RecordAPIConfig
   dataLimit?: number
-  getCurrentContext?: () => ComponentIns | undefined
 }
 
 interface Summary {
@@ -37,7 +34,6 @@ export default class APIMonitor {
   postWarningRules = new Map<string, Array<WarningRule>>()
   config: InitialConfig
   dataCount: number = 0
-
 
   constructor (config?: InitialConfig) {
     this.config = Object.assign({
@@ -97,11 +93,6 @@ export default class APIMonitor {
     if (this.config.dataLimit) {
       this.dataCount++
       if (this.dataCount > this.config.dataLimit) this.clearData()
-    }
-
-    const context = getCurrentContext() || this.config.getCurrentContext?.()
-    if (!data.contextInfo && context) {
-      data.contextInfo = getContextInfo(context)
     }
 
     const dataQueue = this.recordData.get(data.type) || [] as unknown as RecordDataQueue

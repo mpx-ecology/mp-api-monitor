@@ -39,6 +39,7 @@ interface RecordData {
   endTime?: number
   duration?: number
   contextInfo?: ContextInfo
+  stack?: string[]
   size?: number
   resultSize?: number
   errno?: number
@@ -87,16 +88,19 @@ interface StatisticConfig {
 }
 
 interface RecordAPIConfig {
-  include?: string[],
-  exclude?: string[],
+  include?: string[]
+  exclude?: string[]
   isAsync?: string[]
+  needStack?: StackConfig | boolean
+}
+
+interface StackConfig {
+  include?: string[]
+  exclude?: string[]
+  depth?: number
 }
 
 declare function setDataGenerator(type: string, dataGen: DataGen, stage?: Stage): void;
-
-declare function setCurrentContext(context: ComponentIns): void;
-declare function unsetCurrentContext(): void;
-declare function getCurrentContext(): ComponentIns | undefined;
 
 interface WarningCfg {
     onWarning: (msg: string, recordData: RecordDataQueue) => void;
@@ -127,7 +131,6 @@ interface InitialConfig {
     recordSetData?: boolean;
     recordAPI?: boolean | RecordAPIConfig;
     dataLimit?: number;
-    getCurrentContext?: () => ComponentIns | undefined;
 }
 interface Summary {
     setData?: IAnyObject;
@@ -162,4 +165,4 @@ declare class APIMonitor {
     destroy(): void;
 }
 
-export { WarningRule, APIMonitor as default, getCountRule, getCurrentContext, getErrorRule, getParallelismRule, getResultSizeRule, getRouteParallelismRule, getSizeRule, setCurrentContext, setDataGenerator, unsetCurrentContext };
+export { WarningRule, APIMonitor as default, getCountRule, getErrorRule, getParallelismRule, getResultSizeRule, getRouteParallelismRule, getSizeRule, setDataGenerator };
