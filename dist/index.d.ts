@@ -1,106 +1,86 @@
 /// <reference types="miniprogram-api-typings" />
-
-type IAnyObject = Record<string, any>
-
-interface ComponentIns extends WechatMiniprogram.Component.Instance<IAnyObject, IAnyObject, IAnyObject> {
-  $page?: WechatMiniprogram.Page.Instance<IAnyObject, IAnyObject>
-}
-
-declare let my: typeof wx
-
-declare let Mixin: typeof Behavior
-
-interface RequestConfig extends WechatMiniprogram.RequestOption {
-  headers?: IAnyObject
-}
-
-interface AliErr {
-  error: number
-  errorMessage: string
-}
-
-type RequestResult = Optional<WechatMiniprogram.RequestSuccessCallbackResult & WechatMiniprogram.Err & AliErr & {
-  headers: IAnyObject
-}>
-
+type IAnyObject = Record<string, any>;
 interface PageInfo {
-  index: number,
-  route: string
+    index: number;
+    route: string;
 }
-
 interface ContextInfo {
-  is?: string
-  pageInfo?: PageInfo
+    is?: string;
+    pageInfo?: PageInfo;
 }
-
+interface InitialConfig {
+    recordSetData?: boolean;
+    recordAPI?: boolean | RecordAPIConfig;
+    dataLimit?: number;
+}
+interface Summary {
+    setData?: IAnyObject;
+    request?: IAnyObject;
+    api?: IAnyObject;
+}
+type Stage = 'pre' | 'post';
+interface WarningRule {
+    (recordData: RecordDataQueue, monitor: APIMonitor): void;
+    stage?: Stage;
+}
 interface RecordData {
-  type: string
-  startTime: number
-  endTime?: number
-  duration?: number
-  contextInfo?: ContextInfo
-  stack?: string[]
-  size?: number
-  resultSize?: number
-  errno?: number
-  errMsg?: string
-
-  [key: string]: any
+    type: string;
+    startTime: number;
+    endTime?: number;
+    duration?: number;
+    contextInfo?: ContextInfo;
+    stack?: string[];
+    size?: number;
+    resultSize?: number;
+    errno?: number;
+    errMsg?: string;
+    [key: string]: any;
 }
-
-interface GroupData {
-  count: number
-  duration: number
-  size: number
-  resultSize: number
-}
-
 interface RecordDataQueue extends Array<RecordData> {
-  meta: RecordMeta
+    meta: RecordMeta;
 }
-
 interface RecordMeta {
-  parallelism: number
+    parallelism: number;
 }
-
-type Stage = 'pre' | 'post'
-
+interface GroupData {
+    count: number;
+    duration: number;
+    size: number;
+    resultSize: number;
+}
 interface DataGen {
-  (args: any[]): IAnyObject | void
+    (args: any[]): IAnyObject | void;
 }
-
 interface Filter {
-  (item: RecordData): boolean
+    (item: RecordData): boolean;
 }
-
 interface GroupBy {
-  (item: RecordData): string
+    (item: RecordData): string;
 }
-
 interface SortBy {
-  (item: GroupData): number
+    (item: GroupData): number;
 }
-
 interface StatisticConfig {
-  filter?: Filter
-  groupBy?: GroupBy
-  sortBy?: SortBy
+    filter?: Filter;
+    groupBy?: GroupBy;
+    sortBy?: SortBy;
 }
-
 interface RecordAPIConfig {
-  include?: string[]
-  exclude?: string[]
-  isAsync?: string[]
-  needStack?: StackConfig | boolean
+    include?: string[];
+    exclude?: string[];
+    isAsync?: string[];
+    needStack?: StackConfig | boolean;
 }
-
 interface StackConfig {
-  include?: string[]
-  exclude?: string[]
-  depth?: number
+    include?: string[];
+    exclude?: string[];
+    depth?: number;
 }
 
 declare function setDataGenerator(type: string, dataGen: DataGen, stage?: Stage): void;
+declare function getDataGenerator(type: string, stage?: Stage): DataGen | undefined;
+
+declare function byteLength(str: string): number;
 
 interface WarningCfg {
     onWarning: (msg: string, recordData: RecordDataQueue) => void;
@@ -127,20 +107,6 @@ declare function getErrorRule(errorCfg: ErrorCfg): WarningRule;
 declare function getSizeRule(sizeCfg: SizeCfg): WarningRule;
 declare function getResultSizeRule(sizeCfg: SizeCfg): WarningRule;
 
-interface InitialConfig {
-    recordSetData?: boolean;
-    recordAPI?: boolean | RecordAPIConfig;
-    dataLimit?: number;
-}
-interface Summary {
-    setData?: IAnyObject;
-    request?: IAnyObject;
-    api?: IAnyObject;
-}
-interface WarningRule {
-    (recordData: RecordDataQueue, monitor: APIMonitor): void;
-    stage?: Stage;
-}
 declare class APIMonitor {
     recordData: Map<string, RecordDataQueue>;
     isActive: boolean;
@@ -165,4 +131,4 @@ declare class APIMonitor {
     destroy(): void;
 }
 
-export { WarningRule, APIMonitor as default, getCountRule, getErrorRule, getParallelismRule, getResultSizeRule, getRouteParallelismRule, getSizeRule, setDataGenerator };
+export { GroupData, InitialConfig, RecordData, RecordDataQueue, RecordMeta, Stage, StatisticConfig, Summary, WarningRule, byteLength, APIMonitor as default, getCountRule, getDataGenerator, getErrorRule, getParallelismRule, getResultSizeRule, getRouteParallelismRule, getSizeRule, setDataGenerator };

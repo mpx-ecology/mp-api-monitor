@@ -1,7 +1,8 @@
 import { setDataGenerator } from './monitor'
 import { byteLength } from './utils'
+import type { RequestConfig, RequestResult } from './types'
 
-export function initDataGen () {
+export function initDataGen() {
   setDataGenerator('request', (args) => {
     const config: RequestConfig = args[0]
     return {

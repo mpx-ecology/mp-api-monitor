@@ -1,33 +1,36 @@
-import {addMonitor, removeMonitor, setDataGenerator} from './monitor'
-import {proxySetData} from './proxySetData'
-import {proxyAPI} from './proxyAPI'
-import {filterTrue, groupByType, sortByCount} from './utils'
-import {initDataGen} from './dataGen'
+import { addMonitor, removeMonitor, setDataGenerator, getDataGenerator } from './monitor'
+import { proxySetData } from './proxySetData'
+import { proxyAPI } from './proxyAPI'
+import { filterTrue, groupByType, sortByCount, byteLength } from './utils'
+import { initDataGen } from './dataGen'
+import type { RecordDataQueue, WarningRule, InitialConfig, Stage, RecordData, RecordMeta, StatisticConfig, GroupData, Summary } from './types'
 
-export {setDataGenerator}
+export { setDataGenerator, getDataGenerator, byteLength }
 export * from './warningRules'
+export type {
+  RecordDataQueue,
+  WarningRule,
+  InitialConfig,
+  Stage,
+  RecordData,
+  RecordMeta,
+  StatisticConfig,
+  GroupData,
+  Summary,
+  RecordAPIConfig,
+  ContextInfo,
+  PageInfo,
+  StackConfig,
+  Filter,
+  GroupBy,
+  SortBy,
+  IAnyObject,
+  DataGen
+} from './types'
 
 initDataGen()
 
-interface InitialConfig {
-  recordSetData?: boolean
-  recordAPI?: boolean | RecordAPIConfig
-  dataLimit?: number
-}
-
-interface Summary {
-  setData?: IAnyObject
-  request?: IAnyObject
-  api?: IAnyObject
-}
-
-export interface WarningRule {
-  (recordData: RecordDataQueue, monitor: APIMonitor): void
-
-  stage?: Stage
-}
-
-export default class APIMonitor {
+export class APIMonitor {
   recordData = new Map<string, RecordDataQueue>()
   isActive = false
   preWarningRules = new Map<string, Array<WarningRule>>()
@@ -35,7 +38,7 @@ export default class APIMonitor {
   config: InitialConfig
   dataCount: number = 0
 
-  constructor (config?: InitialConfig) {
+  constructor(config?: InitialConfig) {
     this.config = Object.assign({
       recordSetData: true,
       recordAPI: true
@@ -51,20 +54,20 @@ export default class APIMonitor {
     }
   }
 
-  clearData () {
+  clearData() {
     this.recordData.clear()
   }
 
-  startRecord (clear?: boolean) {
+  startRecord(clear?: boolean) {
     if (clear) this.clearData()
     this.isActive = true
   }
 
-  endRecord () {
+  endRecord() {
     this.isActive = false
   }
 
-  checkWarningRules (type: string, stage: Stage = 'pre') {
+  checkWarningRules(type: string, stage: Stage = 'pre') {
     const warningRules = this.getWarningRules(type, stage)
     const recordData = this.getRecordData(type)
     if (warningRules && recordData) {
@@ -74,7 +77,7 @@ export default class APIMonitor {
     }
   }
 
-  addWarningRule (types: string | string[], rule: WarningRule, stage: Stage = 'pre') {
+  addWarningRule(types: string | string[], rule: WarningRule, stage: Stage = 'pre') {
     if (typeof types === 'string') types = [types]
     types.forEach((type) => {
       const warningRulesMap = (rule.stage || stage) === 'pre' ? this.preWarningRules : this.postWarningRules
@@ -84,12 +87,12 @@ export default class APIMonitor {
     })
   }
 
-  getWarningRules (type: string, stage: Stage = 'pre') {
+  getWarningRules(type: string, stage: Stage = 'pre') {
     const warningRulesMap = stage === 'pre' ? this.preWarningRules : this.postWarningRules
     return warningRulesMap.get(type)
   }
 
-  addRecordData (data: RecordData) {
+  addRecordData(data: RecordData) {
     if (this.config.dataLimit) {
       this.dataCount++
       if (this.dataCount > this.config.dataLimit) this.clearData()
@@ -105,25 +108,25 @@ export default class APIMonitor {
     dataQueue.push(data)
   }
 
-  updateMeta (type: string, updater: (meta: RecordMeta) => void) {
+  updateMeta(type: string, updater: (meta: RecordMeta) => void) {
     const recordData = this.getRecordData(type)
     if (recordData) updater(recordData.meta)
   }
 
-  getAllRecordData () {
+  getAllRecordData() {
     return this.recordData
   }
 
-  getAllRecordDataTypes (exclude: Array<string> = []) {
+  getAllRecordDataTypes(exclude: Array<string> = []) {
     return [...this.recordData.keys()].filter((key) => !exclude.includes(key))
   }
 
-  getRecordData (type: string) {
+  getRecordData(type: string) {
     if (!type) throw new Error('Arg [type] must be passed, such as monitor.getRecordData(\'request\'), you can also check valid type string by monitor.getAllRecordDataTypes().')
     return this.recordData.get(type)
   }
 
-  getStatistics (types: string[] = [], { filter = filterTrue, groupBy = groupByType, sortBy = sortByCount }: StatisticConfig = {}) {
+  getStatistics(types: string[] = [], { filter = filterTrue, groupBy = groupByType, sortBy = sortByCount }: StatisticConfig = {}) {
     const groupMap = new Map<string, GroupData>()
 
     types.forEach((type) => {
@@ -151,7 +154,7 @@ export default class APIMonitor {
     return [...groupMap.values()].sort((a, b) => sortBy(b) - sortBy(a))
   }
 
-  getSummary () {
+  getSummary() {
     const { config } = this
     const summary: Summary = {}
     if (config.recordSetData) {
@@ -178,7 +181,7 @@ export default class APIMonitor {
     return summary
   }
 
-  destroy () {
+  destroy() {
     this.clearData()
     this.preWarningRules.clear()
     this.postWarningRules.clear()

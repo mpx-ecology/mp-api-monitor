@@ -1,22 +1,23 @@
-import APIMonitor from './index'
+import type { APIMonitor } from './index'
+import type { DataGen, RecordMeta, Stage, RecordData } from './types'
 
 const monitors: Set<APIMonitor> = new Set()
 const preDataGenerator = new Map<string, DataGen>()
 const postDataGenerator = new Map<string, DataGen>()
 
-export function getMonitors () {
+export function getMonitors() {
   return monitors
 }
 
-export function addMonitor (monitor: APIMonitor) {
+export function addMonitor(monitor: APIMonitor) {
   monitors.add(monitor)
 }
 
-export function removeMonitor (monitor: APIMonitor) {
+export function removeMonitor(monitor: APIMonitor) {
   monitors.delete(monitor)
 }
 
-export function addRecordData (recordData: RecordData) {
+export function addRecordData(recordData: RecordData) {
   monitors.forEach((monitor) => {
     if (monitor.isActive) {
       monitor.addRecordData(recordData)
@@ -24,7 +25,7 @@ export function addRecordData (recordData: RecordData) {
   })
 }
 
-export function updateMeta (type: string, updater: (meta: RecordMeta) => void) {
+export function updateMeta(type: string, updater: (meta: RecordMeta) => void) {
   monitors.forEach((monitor) => {
     if (monitor.isActive) {
       monitor.updateMeta(type, updater)
@@ -32,7 +33,7 @@ export function updateMeta (type: string, updater: (meta: RecordMeta) => void) {
   })
 }
 
-export function checkWarningRules (type: string, stage: Stage = 'pre') {
+export function checkWarningRules(type: string, stage: Stage = 'pre') {
   monitors.forEach((monitor) => {
     if (monitor.isActive) {
       monitor.checkWarningRules(type, stage)
@@ -40,12 +41,12 @@ export function checkWarningRules (type: string, stage: Stage = 'pre') {
   })
 }
 
-export function setDataGenerator (type: string, dataGen: DataGen, stage: Stage = 'pre') {
+export function setDataGenerator(type: string, dataGen: DataGen, stage: Stage = 'pre') {
   const dataGeneratorMap = stage === 'pre' ? preDataGenerator : postDataGenerator
   dataGeneratorMap.set(type, dataGen)
 }
 
-export function getDataGenerator (type: string, stage: Stage = 'pre') {
+export function getDataGenerator(type: string, stage: Stage = 'pre') {
   const dataGeneratorMap = stage === 'pre' ? preDataGenerator : postDataGenerator
   return dataGeneratorMap.get(type)
 }

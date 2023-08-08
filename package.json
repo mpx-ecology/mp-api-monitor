@@ -1,6 +1,6 @@
 {
   "name": "@mpxjs/mp-api-monitor",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "mini program api invoking monitor",
   "main": "dist/index.esm.js",
   "module": "dist/index.esm.js",
@@ -11,6 +11,7 @@
     "release": "node ./script/release.js",
     "lint": "eslint . --ext .js --ext .ts",
     "fix": "eslint . --fix --ext .js --ext .ts",
+    "docs": "typedoc",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "files": [
@@ -33,18 +34,20 @@
     "miniprogram-api-typings": "^3.10.0"
   },
   "devDependencies": {
-    "eslint": "^8.46.0",
     "@typescript-eslint/eslint-plugin": "^6.2.0",
     "@typescript-eslint/parser": "^6.2.0",
     "chalk": "^5.3.0",
     "enquirer": "^2.4.0",
     "esbuild": "^0.18.12",
+    "eslint": "^8.46.0",
     "execa": "^7.2.0",
     "minimist": "^1.2.8",
     "rollup": "^3.26.2",
     "rollup-plugin-dts": "^5.3.0",
     "rollup-plugin-esbuild": "^5.0.0",
     "semver": "^7.5.4",
+    "typedoc": "^0.24.8",
+    "typedoc-plugin-markdown": "^3.15.4",
     "typescript": "^5.1.6"
   }
 }

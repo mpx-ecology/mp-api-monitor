@@ -1,11 +1,13 @@
 import { addRecordData, updateMeta, checkWarningRules, getDataGenerator } from './monitor'
 import { getContextInfo, byteLength, getEnv } from './utils'
+import type { ComponentIns, RecordData } from './types'
+
 /* eslint-disable prefer-spread, no-global-assign */
 let proxyed = false
 const env = getEnv()
 const type = 'setData'
 
-function doProxy (context: ComponentIns) {
+function doProxy(context: ComponentIns) {
   const setDataRaw = context.setData
   context._lastTime = 0
   context._lastCallback = null
@@ -53,7 +55,7 @@ function doProxy (context: ComponentIns) {
   }
 }
 
-export function proxySetData () {
+export function proxySetData() {
   if (proxyed) return
   proxyed = true
   // proxyPage
@@ -76,7 +78,7 @@ export function proxySetData () {
     const options = args[0]
     if (env === 'wx') {
       const behavior = Behavior({
-        created (this: ComponentIns) {
+        created(this: ComponentIns) {
           doProxy(this)
         }
       })
@@ -84,7 +86,7 @@ export function proxySetData () {
       options.behaviors = rawBehaviors ? [behavior].concat(rawBehaviors) : [behavior]
     } else if (env === 'ali') {
       const mixinObj = {
-        onInit (this: ComponentIns) {
+        onInit(this: ComponentIns) {
           doProxy(this)
         }
       }

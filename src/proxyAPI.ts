@@ -1,5 +1,6 @@
-import {getEnvObj, getEnv} from './utils'
-import {addRecordData, updateMeta, checkWarningRules, getDataGenerator} from './monitor'
+import { getEnvObj, getEnv } from './utils'
+import { addRecordData, updateMeta, checkWarningRules, getDataGenerator } from './monitor'
+import type { IAnyObject, RecordAPIConfig, StackConfig, RecordData } from './types'
 
 const envObj = getEnvObj()
 const env = getEnv()
@@ -38,7 +39,7 @@ const syncListMap = syncList.reduce<IAnyObject>((acc, cur) => {
   return acc
 }, {})
 
-function isSync (key: string, config: RecordAPIConfig) {
+function isSync(key: string, config: RecordAPIConfig) {
   return syncListMap[key] ||
     /^get\w*Manager$/.test(key) || // 获取manager的api
     /^create\w*Context$/.test(key) || // 创建上下文相关api
@@ -47,7 +48,7 @@ function isSync (key: string, config: RecordAPIConfig) {
     (config.isAsync && config.isAsync.includes(key))
 }
 
-function __call_trace (depth?: number) {
+function __call_trace(depth?: number) {
   const result: string[] = []
   try {
     throw new Error()
@@ -72,7 +73,7 @@ function __call_trace (depth?: number) {
 
 let proxyed = false
 
-export function proxyAPI (config: RecordAPIConfig) {
+export function proxyAPI(config: RecordAPIConfig) {
   if (!envObj || proxyed) return
 
   let stackConfig: StackConfig = {}

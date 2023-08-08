@@ -1,29 +1,30 @@
 import { WarningRule } from './index'
+import type { RecordDataQueue } from './types'
 
-interface WarningCfg {
+export interface WarningCfg {
   onWarning: (msg: string, recordData: RecordDataQueue) => void
 }
 
-interface CountCfg extends WarningCfg {
+export interface CountCfg extends WarningCfg {
   count: number
   duration?: number
 }
 
-interface ParallelismCfg extends WarningCfg {
+export interface ParallelismCfg extends WarningCfg {
   parallelism: number
 }
 
-interface ErrorCfg extends WarningCfg {
+export interface ErrorCfg extends WarningCfg {
   errno?: number
 }
 
-interface SizeCfg extends WarningCfg {
+export interface SizeCfg extends WarningCfg {
   size: number
   count?: number
   duration?: number
 }
 
-export function getCountRule (countCfg: CountCfg): WarningRule {
+export function getCountRule(countCfg: CountCfg): WarningRule {
   return function (recordData) {
     const now = +new Date()
     for (let i = recordData.length - 1; i >= 0; i--) {
@@ -38,7 +39,7 @@ export function getCountRule (countCfg: CountCfg): WarningRule {
   }
 }
 
-export function getParallelismRule (parallelismCfg: ParallelismCfg): WarningRule {
+export function getParallelismRule(parallelismCfg: ParallelismCfg): WarningRule {
   return function (recordData) {
     const item = recordData[recordData.length - 1]
     if (recordData.meta.parallelism > parallelismCfg.parallelism) {
@@ -56,7 +57,7 @@ const routeTypes = [
   'navigateBack'
 ]
 
-export function getRouteParallelismRule (parallelismCfg: ParallelismCfg): WarningRule {
+export function getRouteParallelismRule(parallelismCfg: ParallelismCfg): WarningRule {
   return function (recordData, monitor) {
     let parallelism = 0
     const item = recordData[recordData.length - 1]
@@ -72,7 +73,7 @@ export function getRouteParallelismRule (parallelismCfg: ParallelismCfg): Warnin
   }
 }
 
-export function getErrorRule (errorCfg: ErrorCfg): WarningRule {
+export function getErrorRule(errorCfg: ErrorCfg): WarningRule {
   const rule: WarningRule = function (recordData) {
     const item = recordData[recordData.length - 1]
     if (errorCfg.errno ? errorCfg.errno === item.errno : item.errno !== undefined) {
@@ -84,7 +85,7 @@ export function getErrorRule (errorCfg: ErrorCfg): WarningRule {
   return rule
 }
 
-export function getSizeRule (sizeCfg: SizeCfg): WarningRule {
+export function getSizeRule(sizeCfg: SizeCfg): WarningRule {
   return function (recordData) {
     const now = +new Date()
     let size = 0
@@ -102,7 +103,7 @@ export function getSizeRule (sizeCfg: SizeCfg): WarningRule {
   }
 }
 
-export function getResultSizeRule (sizeCfg: SizeCfg): WarningRule {
+export function getResultSizeRule(sizeCfg: SizeCfg): WarningRule {
   const rule: WarningRule = function (recordData) {
     const now = +new Date()
     let size = 0

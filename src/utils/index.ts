@@ -1,4 +1,6 @@
-export function byteLength (str: string) {
+import type { ComponentIns, PageInfo, ContextInfo, RecordData, GroupData } from '../types'
+
+export function byteLength(str: string) {
   let s = str.length
   for (let i = str.length - 1; i >= 0; i--) {
     const code = str.charCodeAt(i)
@@ -9,7 +11,7 @@ export function byteLength (str: string) {
   return s
 }
 
-function getPageInfo (context: ComponentIns): PageInfo | undefined {
+function getPageInfo(context: ComponentIns): PageInfo | undefined {
   const currentPages = getCurrentPages()
   if (context.$page) {
     return {
@@ -28,32 +30,32 @@ function getPageInfo (context: ComponentIns): PageInfo | undefined {
   }
 }
 
-export function getContextInfo (context: ComponentIns): ContextInfo {
+export function getContextInfo(context: ComponentIns): ContextInfo {
   return {
     is: context.is,
     pageInfo: getPageInfo(context)
   }
 }
 
-export function getEnvObj () {
+export function getEnvObj() {
   if (wx && typeof wx.canIUse === 'function') return wx
   if (my && typeof my.canIUse === 'function') return my
 }
 
-export function getEnv () {
+export function getEnv() {
   if (wx && typeof wx.canIUse === 'function') return 'wx'
   if (my && typeof my.canIUse === 'function') return 'ali'
 }
 
-export function filterTrue () {
+export function filterTrue() {
   return true
 }
 
-export function groupByType (recordData: RecordData) {
+export function groupByType(recordData: RecordData) {
   return recordData.type
 }
 
-export function sortByCount (groupData: GroupData) {
+export function sortByCount(groupData: GroupData) {
   return groupData.count
 }
 
