@@ -1,6 +1,6 @@
 {
   "name": "@mpxjs/mp-api-monitor",
-  "version": "0.0.6",
+  "version": "0.0.9",
   "description": "mini program api invoking monitor",
   "main": "dist/index.esm.js",
   "module": "dist/index.esm.js",
@@ -16,6 +16,7 @@
   },
   "files": [
     "dist",
+    "docs",
     "README.md"
   ],
   "keywords": [

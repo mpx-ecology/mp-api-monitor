@@ -1,4 +1,4 @@
-[@mpxjs/mp-api-monitor](../README.md) / ErrorCfg
+[@mpxjs/mp-api-monitor](../index.md) / ErrorCfg
 
 # Interface: ErrorCfg
 
@@ -23,7 +23,7 @@
 
 #### Defined in
 
-[src/warningRules.ts:18](https://github.com/mpx-ecology/mp-api-monitor/blob/cec6529/src/warningRules.ts#L18)
+[src/warningRules.ts:18](https://github.com/mpx-ecology/mp-api-monitor/blob/95e0f31/src/warningRules.ts#L18)
 
 ___
 
@@ -52,4 +52,4 @@ ___
 
 #### Defined in
 
-[src/warningRules.ts:5](https://github.com/mpx-ecology/mp-api-monitor/blob/cec6529/src/warningRules.ts#L5)
+[src/warningRules.ts:5](https://github.com/mpx-ecology/mp-api-monitor/blob/95e0f31/src/warningRules.ts#L5)

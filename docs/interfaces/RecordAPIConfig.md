@@ -1,4 +1,4 @@
-[@mpxjs/mp-api-monitor](../README.md) / RecordAPIConfig
+[@mpxjs/mp-api-monitor](../index.md) / RecordAPIConfig
 
 # Interface: RecordAPIConfig
 
@@ -19,7 +19,7 @@
 
 #### Defined in
 
-src/types.ts:106
+[src/types.ts:106](https://github.com/mpx-ecology/mp-api-monitor/blob/95e0f31/src/types.ts#L106)
 
 ___
 
@@ -29,7 +29,7 @@ ___
 
 #### Defined in
 
-src/types.ts:105
+[src/types.ts:105](https://github.com/mpx-ecology/mp-api-monitor/blob/95e0f31/src/types.ts#L105)
 
 ___
 
@@ -39,7 +39,7 @@ ___
 
 #### Defined in
 
-src/types.ts:107
+[src/types.ts:107](https://github.com/mpx-ecology/mp-api-monitor/blob/95e0f31/src/types.ts#L107)
 
 ___
 
@@ -49,4 +49,4 @@ ___
 
 #### Defined in
 
-src/types.ts:108
+[src/types.ts:108](https://github.com/mpx-ecology/mp-api-monitor/blob/95e0f31/src/types.ts#L108)

@@ -1,4 +1,4 @@
-[@mpxjs/mp-api-monitor](../README.md) / SortBy
+[@mpxjs/mp-api-monitor](../index.md) / SortBy
 
 # Interface: SortBy
 
@@ -20,4 +20,4 @@
 
 #### Defined in
 
-src/types.ts:95
+[src/types.ts:95](https://github.com/mpx-ecology/mp-api-monitor/blob/95e0f31/src/types.ts#L95)

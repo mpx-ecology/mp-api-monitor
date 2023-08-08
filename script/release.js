@@ -12,6 +12,7 @@ const currentVersion = createRequire(import.meta.url)('../package.json').version
 const args = minimist(process.argv.slice(2))
 const preId = args.preid || env.npm_config_preid || semver.prerelease(currentVersion)?.[0]
 const skipBuild = args.skipBuild || env.npm_config_skipBuild
+const skipDocs = args.skipDocs || env.npm_config_skipDocs
 const inc = i => semver.inc(currentVersion, i, preId)
 const step = msg => console.log(chalk.cyan(msg))
 
@@ -22,14 +23,14 @@ const versionIncrements = [
   ...(preId ? ['prepatch', 'preminor', 'premajor', 'prerelease'] : [])
 ]
 
-function updateVersions (version) {
+function updateVersions(version) {
   const pkgPath = new URL('../package.json', import.meta.url)
   const pkg = JSON.parse(fs.readFileSync(pkgPath, 'utf-8'))
   pkg.version = version
   fs.writeFileSync(pkgPath, JSON.stringify(pkg, null, 2) + '\n')
 }
 
-async function publishPackage (version) {
+async function publishPackage(version) {
   let releaseTag = null
   if (args.tag) {
     releaseTag = args.tag
@@ -47,7 +48,7 @@ async function publishPackage (version) {
   ], { stdio: 'inherit' })
 }
 
-async function run () {
+async function run() {
   let targetVersion = args._[0]
   if (!targetVersion) {
     const { release } = await prompt({
@@ -81,6 +82,11 @@ async function run () {
   if (!skipBuild) {
     step('\nBuilding...')
     await execa('npm', ['run', 'build'], { stdio: 'inherit' })
+  }
+
+  if (!skipDocs) {
+    step('\nGenerating docs...')
+    await execa('npm', ['run', 'docs'], { stdio: 'inherit' })
   }
 
   step('\nPublishing...')

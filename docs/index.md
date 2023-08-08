@@ -34,20 +34,20 @@
 
 ### Type Aliases
 
-- [IAnyObject](README.md#ianyobject)
-- [Stage](README.md#stage)
+- [IAnyObject](index.md#ianyobject)
+- [Stage](index.md#stage)
 
 ### Functions
 
-- [byteLength](README.md#bytelength)
-- [getCountRule](README.md#getcountrule)
-- [getDataGenerator](README.md#getdatagenerator)
-- [getErrorRule](README.md#geterrorrule)
-- [getParallelismRule](README.md#getparallelismrule)
-- [getResultSizeRule](README.md#getresultsizerule)
-- [getRouteParallelismRule](README.md#getrouteparallelismrule)
-- [getSizeRule](README.md#getsizerule)
-- [setDataGenerator](README.md#setdatagenerator)
+- [byteLength](index.md#bytelength)
+- [getCountRule](index.md#getcountrule)
+- [getDataGenerator](index.md#getdatagenerator)
+- [getErrorRule](index.md#geterrorrule)
+- [getParallelismRule](index.md#getparallelismrule)
+- [getResultSizeRule](index.md#getresultsizerule)
+- [getRouteParallelismRule](index.md#getrouteparallelismrule)
+- [getSizeRule](index.md#getsizerule)
+- [setDataGenerator](index.md#setdatagenerator)
 
 ## Type Aliases
 
@@ -57,7 +57,7 @@
 
 #### Defined in
 
-src/types.ts:3
+[src/types.ts:3](https://github.com/mpx-ecology/mp-api-monitor/blob/95e0f31/src/types.ts#L3)
 
 ___
 
@@ -67,7 +67,7 @@ ___
 
 #### Defined in
 
-src/types.ts:44
+[src/types.ts:44](https://github.com/mpx-ecology/mp-api-monitor/blob/95e0f31/src/types.ts#L44)
 
 ## Functions
 
@@ -87,7 +87,7 @@ src/types.ts:44
 
 #### Defined in
 
-[src/utils/index.ts:3](https://github.com/mpx-ecology/mp-api-monitor/blob/cec6529/src/utils/index.ts#L3)
+[src/utils/index.ts:3](https://github.com/mpx-ecology/mp-api-monitor/blob/95e0f31/src/utils/index.ts#L3)
 
 ___
 
@@ -107,7 +107,7 @@ ___
 
 #### Defined in
 
-[src/warningRules.ts:27](https://github.com/mpx-ecology/mp-api-monitor/blob/cec6529/src/warningRules.ts#L27)
+[src/warningRules.ts:27](https://github.com/mpx-ecology/mp-api-monitor/blob/95e0f31/src/warningRules.ts#L27)
 
 ___
 
@@ -120,7 +120,7 @@ ___
 | Name | Type | Default value |
 | :------ | :------ | :------ |
 | `type` | `string` | `undefined` |
-| `stage` | [`Stage`](README.md#stage) | `'pre'` |
+| `stage` | [`Stage`](index.md#stage) | `'pre'` |
 
 #### Returns
 
@@ -128,7 +128,7 @@ ___
 
 #### Defined in
 
-[src/monitor.ts:49](https://github.com/mpx-ecology/mp-api-monitor/blob/cec6529/src/monitor.ts#L49)
+[src/monitor.ts:49](https://github.com/mpx-ecology/mp-api-monitor/blob/95e0f31/src/monitor.ts#L49)
 
 ___
 
@@ -148,7 +148,7 @@ ___
 
 #### Defined in
 
-[src/warningRules.ts:76](https://github.com/mpx-ecology/mp-api-monitor/blob/cec6529/src/warningRules.ts#L76)
+[src/warningRules.ts:76](https://github.com/mpx-ecology/mp-api-monitor/blob/95e0f31/src/warningRules.ts#L76)
 
 ___
 
@@ -168,7 +168,7 @@ ___
 
 #### Defined in
 
-[src/warningRules.ts:42](https://github.com/mpx-ecology/mp-api-monitor/blob/cec6529/src/warningRules.ts#L42)
+[src/warningRules.ts:42](https://github.com/mpx-ecology/mp-api-monitor/blob/95e0f31/src/warningRules.ts#L42)
 
 ___
 
@@ -188,7 +188,7 @@ ___
 
 #### Defined in
 
-[src/warningRules.ts:106](https://github.com/mpx-ecology/mp-api-monitor/blob/cec6529/src/warningRules.ts#L106)
+[src/warningRules.ts:106](https://github.com/mpx-ecology/mp-api-monitor/blob/95e0f31/src/warningRules.ts#L106)
 
 ___
 
@@ -208,7 +208,7 @@ ___
 
 #### Defined in
 
-[src/warningRules.ts:60](https://github.com/mpx-ecology/mp-api-monitor/blob/cec6529/src/warningRules.ts#L60)
+[src/warningRules.ts:60](https://github.com/mpx-ecology/mp-api-monitor/blob/95e0f31/src/warningRules.ts#L60)
 
 ___
 
@@ -228,7 +228,7 @@ ___
 
 #### Defined in
 
-[src/warningRules.ts:88](https://github.com/mpx-ecology/mp-api-monitor/blob/cec6529/src/warningRules.ts#L88)
+[src/warningRules.ts:88](https://github.com/mpx-ecology/mp-api-monitor/blob/95e0f31/src/warningRules.ts#L88)
 
 ___
 
@@ -242,7 +242,7 @@ ___
 | :------ | :------ | :------ |
 | `type` | `string` | `undefined` |
 | `dataGen` | [`DataGen`](interfaces/DataGen.md) | `undefined` |
-| `stage` | [`Stage`](README.md#stage) | `'pre'` |
+| `stage` | [`Stage`](index.md#stage) | `'pre'` |
 
 #### Returns
 
@@ -250,4 +250,4 @@ ___
 
 #### Defined in
 
-[src/monitor.ts:44](https://github.com/mpx-ecology/mp-api-monitor/blob/cec6529/src/monitor.ts#L44)
+[src/monitor.ts:44](https://github.com/mpx-ecology/mp-api-monitor/blob/95e0f31/src/monitor.ts#L44)

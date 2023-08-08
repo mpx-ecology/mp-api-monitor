@@ -1,4 +1,4 @@
-[@mpxjs/mp-api-monitor](../README.md) / InitialConfig
+[@mpxjs/mp-api-monitor](../index.md) / InitialConfig
 
 # Interface: InitialConfig
 
@@ -18,7 +18,7 @@
 
 #### Defined in
 
-src/types.ts:35
+[src/types.ts:35](https://github.com/mpx-ecology/mp-api-monitor/blob/95e0f31/src/types.ts#L35)
 
 ___
 
@@ -28,7 +28,7 @@ ___
 
 #### Defined in
 
-src/types.ts:34
+[src/types.ts:34](https://github.com/mpx-ecology/mp-api-monitor/blob/95e0f31/src/types.ts#L34)
 
 ___
 
@@ -38,4 +38,4 @@ ___
 
 #### Defined in
 
-src/types.ts:33
+[src/types.ts:33](https://github.com/mpx-ecology/mp-api-monitor/blob/95e0f31/src/types.ts#L33)

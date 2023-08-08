@@ -1,4 +1,4 @@
-[@mpxjs/mp-api-monitor](../README.md) / CountCfg
+[@mpxjs/mp-api-monitor](../index.md) / CountCfg
 
 # Interface: CountCfg
 
@@ -24,7 +24,7 @@
 
 #### Defined in
 
-[src/warningRules.ts:9](https://github.com/mpx-ecology/mp-api-monitor/blob/cec6529/src/warningRules.ts#L9)
+[src/warningRules.ts:9](https://github.com/mpx-ecology/mp-api-monitor/blob/95e0f31/src/warningRules.ts#L9)
 
 ___
 
@@ -34,7 +34,7 @@ ___
 
 #### Defined in
 
-[src/warningRules.ts:10](https://github.com/mpx-ecology/mp-api-monitor/blob/cec6529/src/warningRules.ts#L10)
+[src/warningRules.ts:10](https://github.com/mpx-ecology/mp-api-monitor/blob/95e0f31/src/warningRules.ts#L10)
 
 ___
 
@@ -63,4 +63,4 @@ ___
 
 #### Defined in
 
-[src/warningRules.ts:5](https://github.com/mpx-ecology/mp-api-monitor/blob/cec6529/src/warningRules.ts#L5)
+[src/warningRules.ts:5](https://github.com/mpx-ecology/mp-api-monitor/blob/95e0f31/src/warningRules.ts#L5)

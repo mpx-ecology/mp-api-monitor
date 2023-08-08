@@ -1,4 +1,4 @@
-[@mpxjs/mp-api-monitor](../README.md) / GroupData
+[@mpxjs/mp-api-monitor](../index.md) / GroupData
 
 # Interface: GroupData
 
@@ -19,7 +19,7 @@
 
 #### Defined in
 
-src/types.ts:76
+[src/types.ts:76](https://github.com/mpx-ecology/mp-api-monitor/blob/95e0f31/src/types.ts#L76)
 
 ___
 
@@ -29,7 +29,7 @@ ___
 
 #### Defined in
 
-src/types.ts:77
+[src/types.ts:77](https://github.com/mpx-ecology/mp-api-monitor/blob/95e0f31/src/types.ts#L77)
 
 ___
 
@@ -39,7 +39,7 @@ ___
 
 #### Defined in
 
-src/types.ts:79
+[src/types.ts:79](https://github.com/mpx-ecology/mp-api-monitor/blob/95e0f31/src/types.ts#L79)
 
 ___
 
@@ -49,4 +49,4 @@ ___
 
 #### Defined in
 
-src/types.ts:78
+[src/types.ts:78](https://github.com/mpx-ecology/mp-api-monitor/blob/95e0f31/src/types.ts#L78)

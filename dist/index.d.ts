@@ -131,4 +131,4 @@ declare class APIMonitor {
     destroy(): void;
 }
 
-export { GroupData, InitialConfig, RecordData, RecordDataQueue, RecordMeta, Stage, StatisticConfig, Summary, WarningRule, byteLength, APIMonitor as default, getCountRule, getDataGenerator, getErrorRule, getParallelismRule, getResultSizeRule, getRouteParallelismRule, getSizeRule, setDataGenerator };
+export { APIMonitor, ContextInfo, CountCfg, DataGen, ErrorCfg, Filter, GroupBy, GroupData, IAnyObject, InitialConfig, PageInfo, ParallelismCfg, RecordAPIConfig, RecordData, RecordDataQueue, RecordMeta, SizeCfg, SortBy, StackConfig, Stage, StatisticConfig, Summary, WarningCfg, WarningRule, byteLength, getCountRule, getDataGenerator, getErrorRule, getParallelismRule, getResultSizeRule, getRouteParallelismRule, getSizeRule, setDataGenerator };

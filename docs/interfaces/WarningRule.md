@@ -1,4 +1,4 @@
-[@mpxjs/mp-api-monitor](../README.md) / WarningRule
+[@mpxjs/mp-api-monitor](../index.md) / WarningRule
 
 # Interface: WarningRule
 
@@ -21,7 +21,7 @@
 
 #### Defined in
 
-src/types.ts:47
+[src/types.ts:47](https://github.com/mpx-ecology/mp-api-monitor/blob/95e0f31/src/types.ts#L47)
 
 ## Table of contents
 
@@ -33,8 +33,8 @@ src/types.ts:47
 
 ### stage
 
-• `Optional` **stage**: [`Stage`](../README.md#stage)
+• `Optional` **stage**: [`Stage`](../index.md#stage)
 
 #### Defined in
 
-src/types.ts:49
+[src/types.ts:49](https://github.com/mpx-ecology/mp-api-monitor/blob/95e0f31/src/types.ts#L49)

@@ -1,4 +1,4 @@
-[@mpxjs/mp-api-monitor](../README.md) / RecordMeta
+[@mpxjs/mp-api-monitor](../index.md) / RecordMeta
 
 # Interface: RecordMeta
 
@@ -16,4 +16,4 @@
 
 #### Defined in
 
-src/types.ts:72
+[src/types.ts:72](https://github.com/mpx-ecology/mp-api-monitor/blob/95e0f31/src/types.ts#L72)

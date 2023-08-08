@@ -1,4 +1,4 @@
-[@mpxjs/mp-api-monitor](../README.md) / StackConfig
+[@mpxjs/mp-api-monitor](../index.md) / StackConfig
 
 # Interface: StackConfig
 
@@ -18,7 +18,7 @@
 
 #### Defined in
 
-src/types.ts:114
+[src/types.ts:114](https://github.com/mpx-ecology/mp-api-monitor/blob/95e0f31/src/types.ts#L114)
 
 ___
 
@@ -28,7 +28,7 @@ ___
 
 #### Defined in
 
-src/types.ts:113
+[src/types.ts:113](https://github.com/mpx-ecology/mp-api-monitor/blob/95e0f31/src/types.ts#L113)
 
 ___
 
@@ -38,4 +38,4 @@ ___
 
 #### Defined in
 
-src/types.ts:112
+[src/types.ts:112](https://github.com/mpx-ecology/mp-api-monitor/blob/95e0f31/src/types.ts#L112)

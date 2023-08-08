@@ -1,4 +1,4 @@
-[@mpxjs/mp-api-monitor](../README.md) / DataGen
+[@mpxjs/mp-api-monitor](../index.md) / DataGen
 
 # Interface: DataGen
 
@@ -6,7 +6,7 @@
 
 ### DataGen
 
-▸ **DataGen**(`args`): `void` \| [`IAnyObject`](../README.md#ianyobject)
+▸ **DataGen**(`args`): `void` \| [`IAnyObject`](../index.md#ianyobject)
 
 #### Parameters
 
@@ -16,8 +16,8 @@
 
 #### Returns
 
-`void` \| [`IAnyObject`](../README.md#ianyobject)
+`void` \| [`IAnyObject`](../index.md#ianyobject)
 
 #### Defined in
 
-src/types.ts:83
+[src/types.ts:83](https://github.com/mpx-ecology/mp-api-monitor/blob/95e0f31/src/types.ts#L83)

@@ -1,4 +1,4 @@
-[@mpxjs/mp-api-monitor](../README.md) / APIMonitor
+[@mpxjs/mp-api-monitor](../index.md) / APIMonitor
 
 # Class: APIMonitor
 
@@ -48,7 +48,7 @@
 
 #### Defined in
 
-[src/index.ts:41](https://github.com/mpx-ecology/mp-api-monitor/blob/cec6529/src/index.ts#L41)
+[src/index.ts:41](https://github.com/mpx-ecology/mp-api-monitor/blob/95e0f31/src/index.ts#L41)
 
 ## Properties
 
@@ -58,7 +58,7 @@
 
 #### Defined in
 
-[src/index.ts:38](https://github.com/mpx-ecology/mp-api-monitor/blob/cec6529/src/index.ts#L38)
+[src/index.ts:38](https://github.com/mpx-ecology/mp-api-monitor/blob/95e0f31/src/index.ts#L38)
 
 ___
 
@@ -68,7 +68,7 @@ ___
 
 #### Defined in
 
-[src/index.ts:39](https://github.com/mpx-ecology/mp-api-monitor/blob/cec6529/src/index.ts#L39)
+[src/index.ts:39](https://github.com/mpx-ecology/mp-api-monitor/blob/95e0f31/src/index.ts#L39)
 
 ___
 
@@ -78,7 +78,7 @@ ___
 
 #### Defined in
 
-[src/index.ts:35](https://github.com/mpx-ecology/mp-api-monitor/blob/cec6529/src/index.ts#L35)
+[src/index.ts:35](https://github.com/mpx-ecology/mp-api-monitor/blob/95e0f31/src/index.ts#L35)
 
 ___
 
@@ -88,7 +88,7 @@ ___
 
 #### Defined in
 
-[src/index.ts:37](https://github.com/mpx-ecology/mp-api-monitor/blob/cec6529/src/index.ts#L37)
+[src/index.ts:37](https://github.com/mpx-ecology/mp-api-monitor/blob/95e0f31/src/index.ts#L37)
 
 ___
 
@@ -98,7 +98,7 @@ ___
 
 #### Defined in
 
-[src/index.ts:36](https://github.com/mpx-ecology/mp-api-monitor/blob/cec6529/src/index.ts#L36)
+[src/index.ts:36](https://github.com/mpx-ecology/mp-api-monitor/blob/95e0f31/src/index.ts#L36)
 
 ___
 
@@ -108,7 +108,7 @@ ___
 
 #### Defined in
 
-[src/index.ts:34](https://github.com/mpx-ecology/mp-api-monitor/blob/cec6529/src/index.ts#L34)
+[src/index.ts:34](https://github.com/mpx-ecology/mp-api-monitor/blob/95e0f31/src/index.ts#L34)
 
 ## Methods
 
@@ -128,7 +128,7 @@ ___
 
 #### Defined in
 
-[src/index.ts:95](https://github.com/mpx-ecology/mp-api-monitor/blob/cec6529/src/index.ts#L95)
+[src/index.ts:95](https://github.com/mpx-ecology/mp-api-monitor/blob/95e0f31/src/index.ts#L95)
 
 ___
 
@@ -142,7 +142,7 @@ ___
 | :------ | :------ | :------ |
 | `types` | `string` \| `string`[] | `undefined` |
 | `rule` | [`WarningRule`](../interfaces/WarningRule.md) | `undefined` |
-| `stage` | [`Stage`](../README.md#stage) | `'pre'` |
+| `stage` | [`Stage`](../index.md#stage) | `'pre'` |
 
 #### Returns
 
@@ -150,7 +150,7 @@ ___
 
 #### Defined in
 
-[src/index.ts:80](https://github.com/mpx-ecology/mp-api-monitor/blob/cec6529/src/index.ts#L80)
+[src/index.ts:80](https://github.com/mpx-ecology/mp-api-monitor/blob/95e0f31/src/index.ts#L80)
 
 ___
 
@@ -163,7 +163,7 @@ ___
 | Name | Type | Default value |
 | :------ | :------ | :------ |
 | `type` | `string` | `undefined` |
-| `stage` | [`Stage`](../README.md#stage) | `'pre'` |
+| `stage` | [`Stage`](../index.md#stage) | `'pre'` |
 
 #### Returns
 
@@ -171,7 +171,7 @@ ___
 
 #### Defined in
 
-[src/index.ts:70](https://github.com/mpx-ecology/mp-api-monitor/blob/cec6529/src/index.ts#L70)
+[src/index.ts:70](https://github.com/mpx-ecology/mp-api-monitor/blob/95e0f31/src/index.ts#L70)
 
 ___
 
@@ -185,7 +185,7 @@ ___
 
 #### Defined in
 
-[src/index.ts:57](https://github.com/mpx-ecology/mp-api-monitor/blob/cec6529/src/index.ts#L57)
+[src/index.ts:57](https://github.com/mpx-ecology/mp-api-monitor/blob/95e0f31/src/index.ts#L57)
 
 ___
 
@@ -199,7 +199,7 @@ ___
 
 #### Defined in
 
-[src/index.ts:184](https://github.com/mpx-ecology/mp-api-monitor/blob/cec6529/src/index.ts#L184)
+[src/index.ts:184](https://github.com/mpx-ecology/mp-api-monitor/blob/95e0f31/src/index.ts#L184)
 
 ___
 
@@ -213,7 +213,7 @@ ___
 
 #### Defined in
 
-[src/index.ts:66](https://github.com/mpx-ecology/mp-api-monitor/blob/cec6529/src/index.ts#L66)
+[src/index.ts:66](https://github.com/mpx-ecology/mp-api-monitor/blob/95e0f31/src/index.ts#L66)
 
 ___
 
@@ -227,7 +227,7 @@ ___
 
 #### Defined in
 
-[src/index.ts:116](https://github.com/mpx-ecology/mp-api-monitor/blob/cec6529/src/index.ts#L116)
+[src/index.ts:116](https://github.com/mpx-ecology/mp-api-monitor/blob/95e0f31/src/index.ts#L116)
 
 ___
 
@@ -247,7 +247,7 @@ ___
 
 #### Defined in
 
-[src/index.ts:120](https://github.com/mpx-ecology/mp-api-monitor/blob/cec6529/src/index.ts#L120)
+[src/index.ts:120](https://github.com/mpx-ecology/mp-api-monitor/blob/95e0f31/src/index.ts#L120)
 
 ___
 
@@ -267,7 +267,7 @@ ___
 
 #### Defined in
 
-[src/index.ts:124](https://github.com/mpx-ecology/mp-api-monitor/blob/cec6529/src/index.ts#L124)
+[src/index.ts:124](https://github.com/mpx-ecology/mp-api-monitor/blob/95e0f31/src/index.ts#L124)
 
 ___
 
@@ -288,7 +288,7 @@ ___
 
 #### Defined in
 
-[src/index.ts:129](https://github.com/mpx-ecology/mp-api-monitor/blob/cec6529/src/index.ts#L129)
+[src/index.ts:129](https://github.com/mpx-ecology/mp-api-monitor/blob/95e0f31/src/index.ts#L129)
 
 ___
 
@@ -302,7 +302,7 @@ ___
 
 #### Defined in
 
-[src/index.ts:157](https://github.com/mpx-ecology/mp-api-monitor/blob/cec6529/src/index.ts#L157)
+[src/index.ts:157](https://github.com/mpx-ecology/mp-api-monitor/blob/95e0f31/src/index.ts#L157)
 
 ___
 
@@ -315,7 +315,7 @@ ___
 | Name | Type | Default value |
 | :------ | :------ | :------ |
 | `type` | `string` | `undefined` |
-| `stage` | [`Stage`](../README.md#stage) | `'pre'` |
+| `stage` | [`Stage`](../index.md#stage) | `'pre'` |
 
 #### Returns
 
@@ -323,7 +323,7 @@ ___
 
 #### Defined in
 
-[src/index.ts:90](https://github.com/mpx-ecology/mp-api-monitor/blob/cec6529/src/index.ts#L90)
+[src/index.ts:90](https://github.com/mpx-ecology/mp-api-monitor/blob/95e0f31/src/index.ts#L90)
 
 ___
 
@@ -343,7 +343,7 @@ ___
 
 #### Defined in
 
-[src/index.ts:61](https://github.com/mpx-ecology/mp-api-monitor/blob/cec6529/src/index.ts#L61)
+[src/index.ts:61](https://github.com/mpx-ecology/mp-api-monitor/blob/95e0f31/src/index.ts#L61)
 
 ___
 
@@ -364,4 +364,4 @@ ___
 
 #### Defined in
 
-[src/index.ts:111](https://github.com/mpx-ecology/mp-api-monitor/blob/cec6529/src/index.ts#L111)
+[src/index.ts:111](https://github.com/mpx-ecology/mp-api-monitor/blob/95e0f31/src/index.ts#L111)

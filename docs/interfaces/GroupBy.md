@@ -1,4 +1,4 @@
-[@mpxjs/mp-api-monitor](../README.md) / GroupBy
+[@mpxjs/mp-api-monitor](../index.md) / GroupBy
 
 # Interface: GroupBy
 
@@ -20,4 +20,4 @@
 
 #### Defined in
 
-src/types.ts:91
+[src/types.ts:91](https://github.com/mpx-ecology/mp-api-monitor/blob/95e0f31/src/types.ts#L91)

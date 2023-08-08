@@ -1,4 +1,4 @@
-[@mpxjs/mp-api-monitor](../README.md) / PageInfo
+[@mpxjs/mp-api-monitor](../index.md) / PageInfo
 
 # Interface: PageInfo
 
@@ -17,7 +17,7 @@
 
 #### Defined in
 
-src/types.ts:23
+[src/types.ts:23](https://github.com/mpx-ecology/mp-api-monitor/blob/95e0f31/src/types.ts#L23)
 
 ___
 
@@ -27,4 +27,4 @@ ___
 
 #### Defined in
 
-src/types.ts:24
+[src/types.ts:24](https://github.com/mpx-ecology/mp-api-monitor/blob/95e0f31/src/types.ts#L24)

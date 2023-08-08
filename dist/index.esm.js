@@ -643,4 +643,4 @@ class APIMonitor {
   }
 }
 
-export { byteLength, APIMonitor as default, getCountRule, getDataGenerator, getErrorRule, getParallelismRule, getResultSizeRule, getRouteParallelismRule, getSizeRule, setDataGenerator };
+export { APIMonitor, byteLength, getCountRule, getDataGenerator, getErrorRule, getParallelismRule, getResultSizeRule, getRouteParallelismRule, getSizeRule, setDataGenerator };

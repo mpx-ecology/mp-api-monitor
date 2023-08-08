@@ -1,4 +1,4 @@
-[@mpxjs/mp-api-monitor](../README.md) / RecordDataQueue
+[@mpxjs/mp-api-monitor](../index.md) / RecordDataQueue
 
 # Interface: RecordDataQueue
 
@@ -137,7 +137,7 @@ ___
 
 #### Defined in
 
-src/types.ts:68
+[src/types.ts:68](https://github.com/mpx-ecology/mp-api-monitor/blob/95e0f31/src/types.ts#L68)
 
 ## Methods
 

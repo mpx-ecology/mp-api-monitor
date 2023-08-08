@@ -1,4 +1,4 @@
-[@mpxjs/mp-api-monitor](../README.md) / Summary
+[@mpxjs/mp-api-monitor](../index.md) / Summary
 
 # Interface: Summary
 
@@ -14,28 +14,28 @@
 
 ### api
 
-• `Optional` **api**: [`IAnyObject`](../README.md#ianyobject)
+• `Optional` **api**: [`IAnyObject`](../index.md#ianyobject)
 
 #### Defined in
 
-src/types.ts:41
+[src/types.ts:41](https://github.com/mpx-ecology/mp-api-monitor/blob/95e0f31/src/types.ts#L41)
 
 ___
 
 ### request
 
-• `Optional` **request**: [`IAnyObject`](../README.md#ianyobject)
+• `Optional` **request**: [`IAnyObject`](../index.md#ianyobject)
 
 #### Defined in
 
-src/types.ts:40
+[src/types.ts:40](https://github.com/mpx-ecology/mp-api-monitor/blob/95e0f31/src/types.ts#L40)
 
 ___
 
 ### setData
 
-• `Optional` **setData**: [`IAnyObject`](../README.md#ianyobject)
+• `Optional` **setData**: [`IAnyObject`](../index.md#ianyobject)
 
 #### Defined in
 
-src/types.ts:39
+[src/types.ts:39](https://github.com/mpx-ecology/mp-api-monitor/blob/95e0f31/src/types.ts#L39)

@@ -1,4 +1,4 @@
-[@mpxjs/mp-api-monitor](../README.md) / SizeCfg
+[@mpxjs/mp-api-monitor](../index.md) / SizeCfg
 
 # Interface: SizeCfg
 
@@ -25,7 +25,7 @@
 
 #### Defined in
 
-[src/warningRules.ts:23](https://github.com/mpx-ecology/mp-api-monitor/blob/cec6529/src/warningRules.ts#L23)
+[src/warningRules.ts:23](https://github.com/mpx-ecology/mp-api-monitor/blob/95e0f31/src/warningRules.ts#L23)
 
 ___
 
@@ -35,7 +35,7 @@ ___
 
 #### Defined in
 
-[src/warningRules.ts:24](https://github.com/mpx-ecology/mp-api-monitor/blob/cec6529/src/warningRules.ts#L24)
+[src/warningRules.ts:24](https://github.com/mpx-ecology/mp-api-monitor/blob/95e0f31/src/warningRules.ts#L24)
 
 ___
 
@@ -64,7 +64,7 @@ ___
 
 #### Defined in
 
-[src/warningRules.ts:5](https://github.com/mpx-ecology/mp-api-monitor/blob/cec6529/src/warningRules.ts#L5)
+[src/warningRules.ts:5](https://github.com/mpx-ecology/mp-api-monitor/blob/95e0f31/src/warningRules.ts#L5)
 
 ___
 
@@ -74,4 +74,4 @@ ___
 
 #### Defined in
 
-[src/warningRules.ts:22](https://github.com/mpx-ecology/mp-api-monitor/blob/cec6529/src/warningRules.ts#L22)
+[src/warningRules.ts:22](https://github.com/mpx-ecology/mp-api-monitor/blob/95e0f31/src/warningRules.ts#L22)

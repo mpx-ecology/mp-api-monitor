@@ -1,4 +1,4 @@
-[@mpxjs/mp-api-monitor](../README.md) / RecordData
+[@mpxjs/mp-api-monitor](../index.md) / RecordData
 
 # Interface: RecordData
 
@@ -29,7 +29,7 @@
 
 #### Defined in
 
-src/types.ts:57
+[src/types.ts:57](https://github.com/mpx-ecology/mp-api-monitor/blob/95e0f31/src/types.ts#L57)
 
 ___
 
@@ -39,7 +39,7 @@ ___
 
 #### Defined in
 
-src/types.ts:56
+[src/types.ts:56](https://github.com/mpx-ecology/mp-api-monitor/blob/95e0f31/src/types.ts#L56)
 
 ___
 
@@ -49,7 +49,7 @@ ___
 
 #### Defined in
 
-src/types.ts:55
+[src/types.ts:55](https://github.com/mpx-ecology/mp-api-monitor/blob/95e0f31/src/types.ts#L55)
 
 ___
 
@@ -59,7 +59,7 @@ ___
 
 #### Defined in
 
-src/types.ts:62
+[src/types.ts:62](https://github.com/mpx-ecology/mp-api-monitor/blob/95e0f31/src/types.ts#L62)
 
 ___
 
@@ -69,7 +69,7 @@ ___
 
 #### Defined in
 
-src/types.ts:61
+[src/types.ts:61](https://github.com/mpx-ecology/mp-api-monitor/blob/95e0f31/src/types.ts#L61)
 
 ___
 
@@ -79,7 +79,7 @@ ___
 
 #### Defined in
 
-src/types.ts:60
+[src/types.ts:60](https://github.com/mpx-ecology/mp-api-monitor/blob/95e0f31/src/types.ts#L60)
 
 ___
 
@@ -89,7 +89,7 @@ ___
 
 #### Defined in
 
-src/types.ts:59
+[src/types.ts:59](https://github.com/mpx-ecology/mp-api-monitor/blob/95e0f31/src/types.ts#L59)
 
 ___
 
@@ -99,7 +99,7 @@ ___
 
 #### Defined in
 
-src/types.ts:58
+[src/types.ts:58](https://github.com/mpx-ecology/mp-api-monitor/blob/95e0f31/src/types.ts#L58)
 
 ___
 
@@ -109,7 +109,7 @@ ___
 
 #### Defined in
 
-src/types.ts:54
+[src/types.ts:54](https://github.com/mpx-ecology/mp-api-monitor/blob/95e0f31/src/types.ts#L54)
 
 ___
 
@@ -119,4 +119,4 @@ ___
 
 #### Defined in
 
-src/types.ts:53
+[src/types.ts:53](https://github.com/mpx-ecology/mp-api-monitor/blob/95e0f31/src/types.ts#L53)

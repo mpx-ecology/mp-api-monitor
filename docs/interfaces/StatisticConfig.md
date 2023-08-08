@@ -1,4 +1,4 @@
-[@mpxjs/mp-api-monitor](../README.md) / StatisticConfig
+[@mpxjs/mp-api-monitor](../index.md) / StatisticConfig
 
 # Interface: StatisticConfig
 
@@ -18,7 +18,7 @@
 
 #### Defined in
 
-src/types.ts:99
+[src/types.ts:99](https://github.com/mpx-ecology/mp-api-monitor/blob/95e0f31/src/types.ts#L99)
 
 ___
 
@@ -28,7 +28,7 @@ ___
 
 #### Defined in
 
-src/types.ts:100
+[src/types.ts:100](https://github.com/mpx-ecology/mp-api-monitor/blob/95e0f31/src/types.ts#L100)
 
 ___
 
@@ -38,4 +38,4 @@ ___
 
 #### Defined in
 
-src/types.ts:101
+[src/types.ts:101](https://github.com/mpx-ecology/mp-api-monitor/blob/95e0f31/src/types.ts#L101)
