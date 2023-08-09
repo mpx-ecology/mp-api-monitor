@@ -1,5 +1,5 @@
 import { getEnvObj, getEnv } from './utils'
-import { addRecordData, updateMeta, checkWarningRules, getDataGenerator } from './monitor'
+import { addRecordData, updateMeta, checkWarningRules, getDataGenerators } from './monitor'
 import type { IAnyObject, RecordAPIConfig, StackConfig, RecordData } from './types'
 
 const envObj = getEnvObj()
@@ -113,9 +113,11 @@ export function proxyAPI(config: RecordAPIConfig) {
         startTime: +new Date()
       }
       if (stackInfo.length) recordData.stack = stackInfo
-      const preDataGen = getDataGenerator(type)
-      if (preDataGen) {
-        Object.assign(recordData, preDataGen(args))
+      const preDataGens = getDataGenerators(type)
+      if (preDataGens) {
+        for (const preDataGen of preDataGens) {
+          Object.assign(recordData, preDataGen(args, recordData))
+        }
       }
       addRecordData(recordData)
 
@@ -125,9 +127,11 @@ export function proxyAPI(config: RecordAPIConfig) {
         const result = original.apply(this, args)
         recordData.endTime = +new Date()
         recordData.duration = recordData.endTime - recordData.startTime
-        const postDataGen = getDataGenerator(type, 'post')
-        if (postDataGen) {
-          Object.assign(recordData, postDataGen([result]))
+        const postDataGens = getDataGenerators(type, 'post')
+        if (postDataGens) {
+          for (const postDataGen of postDataGens) {
+            Object.assign(recordData, postDataGen([result], recordData))
+          }
         }
         checkWarningRules(type, 'post')
         return result
@@ -143,9 +147,11 @@ export function proxyAPI(config: RecordAPIConfig) {
         opt.success = function (...args: any[]) {
           recordData.endTime = +new Date()
           recordData.duration = recordData.endTime - recordData.startTime
-          const postDataGen = getDataGenerator(type, 'post')
-          if (postDataGen) {
-            Object.assign(recordData, postDataGen(args))
+          const postDataGens = getDataGenerators(type, 'post')
+          if (postDataGens) {
+            for (const postDataGen of postDataGens) {
+              Object.assign(recordData, postDataGen(args, recordData))
+            }
           }
           updateMeta(type, (meta) => {
             meta.parallelism--

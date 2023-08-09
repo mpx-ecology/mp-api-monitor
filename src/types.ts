@@ -80,7 +80,7 @@ export interface GroupData {
 }
 
 export interface DataGen {
-  (args: any[]): IAnyObject | void
+  (args: any[], recordData: RecordData): IAnyObject | void
 }
 
 export interface Filter {

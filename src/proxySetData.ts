@@ -1,4 +1,4 @@
-import { addRecordData, updateMeta, checkWarningRules, getDataGenerator } from './monitor'
+import { addRecordData, updateMeta, checkWarningRules, getDataGenerators } from './monitor'
 import { getContextInfo, byteLength, getEnv } from './utils'
 import type { ComponentIns, RecordData } from './types'
 
@@ -21,9 +21,11 @@ function doProxy(context: ComponentIns) {
       contextInfo: getContextInfo(context)
     }
 
-    const preDataGen = getDataGenerator(type)
-    if (preDataGen) {
-      Object.assign(recordData, preDataGen(args))
+    const preDataGens = getDataGenerators(type)
+    if (preDataGens) {
+      for (const preDataGen of preDataGens) {
+        Object.assign(recordData, preDataGen(args, recordData))
+      }
     }
 
     addRecordData(recordData)
@@ -37,9 +39,11 @@ function doProxy(context: ComponentIns) {
     args[1] = function (...args) {
       recordData.endTime = +new Date()
       recordData.duration = recordData.endTime - recordData.startTime
-      const postDataGen = getDataGenerator(type, 'post')
-      if (postDataGen) {
-        Object.assign(recordData, postDataGen(args))
+      const postDataGens = getDataGenerators(type, 'post')
+      if (postDataGens) {
+        for (const postDataGen of postDataGens) {
+          Object.assign(recordData, postDataGen(args, recordData))
+        }
       }
       updateMeta(type, (meta) => {
         meta.parallelism--
@@ -98,5 +102,4 @@ export function proxySetData() {
   }
 
   Component = proxyComponent
-
 }

@@ -1,11 +1,11 @@
-import { addMonitor, removeMonitor, setDataGenerator, getDataGenerator } from './monitor'
+import { addMonitor, removeMonitor, setDataGenerator, getDataGenerators } from './monitor'
 import { proxySetData } from './proxySetData'
 import { proxyAPI } from './proxyAPI'
 import { filterTrue, groupByType, sortByCount, byteLength } from './utils'
 import { initDataGen } from './dataGen'
 import type { RecordDataQueue, WarningRule, InitialConfig, Stage, RecordData, RecordMeta, StatisticConfig, GroupData, Summary } from './types'
 
-export { setDataGenerator, getDataGenerator, byteLength }
+export { setDataGenerator, getDataGenerators, byteLength }
 export * from './warningRules'
 export type {
   RecordDataQueue,

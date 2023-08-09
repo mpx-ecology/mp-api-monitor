@@ -49,7 +49,7 @@ interface GroupData {
     resultSize: number;
 }
 interface DataGen {
-    (args: any[]): IAnyObject | void;
+    (args: any[], recordData: RecordData): IAnyObject | void;
 }
 interface Filter {
     (item: RecordData): boolean;
@@ -78,7 +78,7 @@ interface StackConfig {
 }
 
 declare function setDataGenerator(type: string, dataGen: DataGen, stage?: Stage): void;
-declare function getDataGenerator(type: string, stage?: Stage): DataGen | undefined;
+declare function getDataGenerators(type: string, stage?: Stage): DataGen[] | undefined;
 
 declare function byteLength(str: string): number;
 
@@ -131,4 +131,4 @@ declare class APIMonitor {
     destroy(): void;
 }
 
-export { APIMonitor, ContextInfo, CountCfg, DataGen, ErrorCfg, Filter, GroupBy, GroupData, IAnyObject, InitialConfig, PageInfo, ParallelismCfg, RecordAPIConfig, RecordData, RecordDataQueue, RecordMeta, SizeCfg, SortBy, StackConfig, Stage, StatisticConfig, Summary, WarningCfg, WarningRule, byteLength, getCountRule, getDataGenerator, getErrorRule, getParallelismRule, getResultSizeRule, getRouteParallelismRule, getSizeRule, setDataGenerator };
+export { APIMonitor, ContextInfo, CountCfg, DataGen, ErrorCfg, Filter, GroupBy, GroupData, IAnyObject, InitialConfig, PageInfo, ParallelismCfg, RecordAPIConfig, RecordData, RecordDataQueue, RecordMeta, SizeCfg, SortBy, StackConfig, Stage, StatisticConfig, Summary, WarningCfg, WarningRule, byteLength, getCountRule, getDataGenerators, getErrorRule, getParallelismRule, getResultSizeRule, getRouteParallelismRule, getSizeRule, setDataGenerator };

@@ -30,9 +30,12 @@ function checkWarningRules(type, stage = "pre") {
 }
 function setDataGenerator(type, dataGen, stage = "pre") {
   const dataGeneratorMap = stage === "pre" ? preDataGenerator : postDataGenerator;
-  dataGeneratorMap.set(type, dataGen);
+  const dataGens = dataGeneratorMap.get(type) || [];
+  if (!dataGeneratorMap.has(type))
+    dataGeneratorMap.set(type, dataGens);
+  dataGens.push(dataGen);
 }
-function getDataGenerator(type, stage = "pre") {
+function getDataGenerators(type, stage = "pre") {
   const dataGeneratorMap = stage === "pre" ? preDataGenerator : postDataGenerator;
   return dataGeneratorMap.get(type);
 }
@@ -112,9 +115,11 @@ function doProxy(context) {
       size: data ? byteLength(JSON.stringify(data)) : 0,
       contextInfo: getContextInfo(context)
     };
-    const preDataGen = getDataGenerator(type);
-    if (preDataGen) {
-      Object.assign(recordData, preDataGen(args));
+    const preDataGens = getDataGenerators(type);
+    if (preDataGens) {
+      for (const preDataGen of preDataGens) {
+        Object.assign(recordData, preDataGen(args, recordData));
+      }
     }
     addRecordData(recordData);
     updateMeta(type, (meta) => {
@@ -125,9 +130,11 @@ function doProxy(context) {
     args[1] = function(...args2) {
       recordData.endTime = +/* @__PURE__ */ new Date();
       recordData.duration = recordData.endTime - recordData.startTime;
-      const postDataGen = getDataGenerator(type, "post");
-      if (postDataGen) {
-        Object.assign(recordData, postDataGen(args2));
+      const postDataGens = getDataGenerators(type, "post");
+      if (postDataGens) {
+        for (const postDataGen of postDataGens) {
+          Object.assign(recordData, postDataGen(args2, recordData));
+        }
       }
       updateMeta(type, (meta) => {
         meta.parallelism--;
@@ -276,9 +283,11 @@ function proxyAPI(config) {
       };
       if (stackInfo.length)
         recordData.stack = stackInfo;
-      const preDataGen = getDataGenerator(type);
-      if (preDataGen) {
-        Object.assign(recordData, preDataGen(args));
+      const preDataGens = getDataGenerators(type);
+      if (preDataGens) {
+        for (const preDataGen of preDataGens) {
+          Object.assign(recordData, preDataGen(args, recordData));
+        }
       }
       addRecordData(recordData);
       if (sync) {
@@ -286,9 +295,11 @@ function proxyAPI(config) {
         const result = original.apply(this, args);
         recordData.endTime = +/* @__PURE__ */ new Date();
         recordData.duration = recordData.endTime - recordData.startTime;
-        const postDataGen = getDataGenerator(type, "post");
-        if (postDataGen) {
-          Object.assign(recordData, postDataGen([result]));
+        const postDataGens = getDataGenerators(type, "post");
+        if (postDataGens) {
+          for (const postDataGen of postDataGens) {
+            Object.assign(recordData, postDataGen([result], recordData));
+          }
         }
         checkWarningRules(type, "post");
         return result;
@@ -303,9 +314,11 @@ function proxyAPI(config) {
         opt.success = function(...args2) {
           recordData.endTime = +/* @__PURE__ */ new Date();
           recordData.duration = recordData.endTime - recordData.startTime;
-          const postDataGen = getDataGenerator(type, "post");
-          if (postDataGen) {
-            Object.assign(recordData, postDataGen(args2));
+          const postDataGens = getDataGenerators(type, "post");
+          if (postDataGens) {
+            for (const postDataGen of postDataGens) {
+              Object.assign(recordData, postDataGen(args2, recordData));
+            }
           }
           updateMeta(type, (meta) => {
             meta.parallelism--;
@@ -643,4 +656,4 @@ class APIMonitor {
   }
 }
 
-export { APIMonitor, byteLength, getCountRule, getDataGenerator, getErrorRule, getParallelismRule, getResultSizeRule, getRouteParallelismRule, getSizeRule, setDataGenerator };
+export { APIMonitor, byteLength, getCountRule, getDataGenerators, getErrorRule, getParallelismRule, getResultSizeRule, getRouteParallelismRule, getSizeRule, setDataGenerator };
