@@ -12,20 +12,10 @@
 
 ### Properties
 
-- [errno](ErrorCfg.md#errno)
 - [onWarning](ErrorCfg.md#onwarning)
+- [errno](ErrorCfg.md#errno)
 
 ## Properties
-
-### errno
-
-• `Optional` **errno**: `number`
-
-#### Defined in
-
-[src/warningRules.ts:18](https://github.com/mpx-ecology/mp-api-monitor/blob/95e0f31/src/warningRules.ts#L18)
-
-___
 
 ### onWarning
 
@@ -52,4 +42,14 @@ ___
 
 #### Defined in
 
-[src/warningRules.ts:5](https://github.com/mpx-ecology/mp-api-monitor/blob/95e0f31/src/warningRules.ts#L5)
+[src/warningRules.ts:5](https://github.com/mpx-ecology/mp-api-monitor/blob/008278c/src/warningRules.ts#L5)
+
+___
+
+### errno
+
+• `Optional` **errno**: `number`
+
+#### Defined in
+
+[src/warningRules.ts:18](https://github.com/mpx-ecology/mp-api-monitor/blob/008278c/src/warningRules.ts#L18)

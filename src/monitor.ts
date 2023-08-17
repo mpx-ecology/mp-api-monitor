@@ -40,7 +40,23 @@ export function checkWarningRules(type: string, stage: Stage = 'pre') {
     }
   })
 }
-
+/**
+ * 自定义recordData生成逻辑，可以为一个type设置多个dataGen，返回的数据会合并到recordData中
+ * @example
+ * ```ts
+ * setDataGenerator('setData', (args, recordData) => {
+ *   // args为原始入参数组，对于setData来说args[0]为发送的数据，args[1]为setData回调
+ *   const data = args[0]
+ *   // recordData为当前recordData
+ *   if (recordData.size && recordData.size > 10000) {
+ *     // 返回的数据会合并到recordData当中，当发送数据size大于10K时，在recordData中存储原始数据便于排查
+ *     return {
+ *       data
+ *     }
+ *   }
+ * })
+ * ```
+ */
 export function setDataGenerator(type: string, dataGen: DataGen, stage: Stage = 'pre') {
   const dataGeneratorMap = stage === 'pre' ? preDataGenerator : postDataGenerator
   const dataGens = dataGeneratorMap.get(type) || []

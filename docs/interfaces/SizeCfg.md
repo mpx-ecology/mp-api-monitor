@@ -12,32 +12,12 @@
 
 ### Properties
 
-- [count](SizeCfg.md#count)
-- [duration](SizeCfg.md#duration)
 - [onWarning](SizeCfg.md#onwarning)
 - [size](SizeCfg.md#size)
+- [count](SizeCfg.md#count)
+- [duration](SizeCfg.md#duration)
 
 ## Properties
-
-### count
-
-• `Optional` **count**: `number`
-
-#### Defined in
-
-[src/warningRules.ts:23](https://github.com/mpx-ecology/mp-api-monitor/blob/95e0f31/src/warningRules.ts#L23)
-
-___
-
-### duration
-
-• `Optional` **duration**: `number`
-
-#### Defined in
-
-[src/warningRules.ts:24](https://github.com/mpx-ecology/mp-api-monitor/blob/95e0f31/src/warningRules.ts#L24)
-
-___
 
 ### onWarning
 
@@ -64,7 +44,7 @@ ___
 
 #### Defined in
 
-[src/warningRules.ts:5](https://github.com/mpx-ecology/mp-api-monitor/blob/95e0f31/src/warningRules.ts#L5)
+[src/warningRules.ts:5](https://github.com/mpx-ecology/mp-api-monitor/blob/008278c/src/warningRules.ts#L5)
 
 ___
 
@@ -74,4 +54,24 @@ ___
 
 #### Defined in
 
-[src/warningRules.ts:22](https://github.com/mpx-ecology/mp-api-monitor/blob/95e0f31/src/warningRules.ts#L22)
+[src/warningRules.ts:22](https://github.com/mpx-ecology/mp-api-monitor/blob/008278c/src/warningRules.ts#L22)
+
+___
+
+### count
+
+• `Optional` **count**: `number`
+
+#### Defined in
+
+[src/warningRules.ts:23](https://github.com/mpx-ecology/mp-api-monitor/blob/008278c/src/warningRules.ts#L23)
+
+___
+
+### duration
+
+• `Optional` **duration**: `number`
+
+#### Defined in
+
+[src/warningRules.ts:24](https://github.com/mpx-ecology/mp-api-monitor/blob/008278c/src/warningRules.ts#L24)

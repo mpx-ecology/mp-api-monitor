@@ -6,36 +6,36 @@
 
 ### Properties
 
-- [api](Summary.md#api)
-- [request](Summary.md#request)
 - [setData](Summary.md#setdata)
+- [request](Summary.md#request)
+- [api](Summary.md#api)
 
 ## Properties
 
-### api
+### setData
 
-• `Optional` **api**: [`IAnyObject`](../index.md#ianyobject)
+• `Optional` **setData**: [`GroupData`](GroupData.md)[]
 
 #### Defined in
 
-[src/types.ts:41](https://github.com/mpx-ecology/mp-api-monitor/blob/95e0f31/src/types.ts#L41)
+[src/types.ts:39](https://github.com/mpx-ecology/mp-api-monitor/blob/008278c/src/types.ts#L39)
 
 ___
 
 ### request
 
-• `Optional` **request**: [`IAnyObject`](../index.md#ianyobject)
+• `Optional` **request**: [`GroupData`](GroupData.md)[]
 
 #### Defined in
 
-[src/types.ts:40](https://github.com/mpx-ecology/mp-api-monitor/blob/95e0f31/src/types.ts#L40)
+[src/types.ts:40](https://github.com/mpx-ecology/mp-api-monitor/blob/008278c/src/types.ts#L40)
 
 ___
 
-### setData
+### api
 
-• `Optional` **setData**: [`IAnyObject`](../index.md#ianyobject)
+• `Optional` **api**: [`GroupData`](GroupData.md)[]
 
 #### Defined in
 
-[src/types.ts:39](https://github.com/mpx-ecology/mp-api-monitor/blob/95e0f31/src/types.ts#L39)
+[src/types.ts:41](https://github.com/mpx-ecology/mp-api-monitor/blob/008278c/src/types.ts#L41)

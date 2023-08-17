@@ -6,19 +6,19 @@
 
 ### Properties
 
-- [dataLimit](InitialConfig.md#datalimit)
-- [recordAPI](InitialConfig.md#recordapi)
 - [recordSetData](InitialConfig.md#recordsetdata)
+- [recordAPI](InitialConfig.md#recordapi)
+- [dataLimit](InitialConfig.md#datalimit)
 
 ## Properties
 
-### dataLimit
+### recordSetData
 
-• `Optional` **dataLimit**: `number`
+• `Optional` **recordSetData**: `boolean`
 
 #### Defined in
 
-[src/types.ts:35](https://github.com/mpx-ecology/mp-api-monitor/blob/95e0f31/src/types.ts#L35)
+[src/types.ts:33](https://github.com/mpx-ecology/mp-api-monitor/blob/008278c/src/types.ts#L33)
 
 ___
 
@@ -28,14 +28,14 @@ ___
 
 #### Defined in
 
-[src/types.ts:34](https://github.com/mpx-ecology/mp-api-monitor/blob/95e0f31/src/types.ts#L34)
+[src/types.ts:34](https://github.com/mpx-ecology/mp-api-monitor/blob/008278c/src/types.ts#L34)
 
 ___
 
-### recordSetData
+### dataLimit
 
-• `Optional` **recordSetData**: `boolean`
+• `Optional` **dataLimit**: `number`
 
 #### Defined in
 
-[src/types.ts:33](https://github.com/mpx-ecology/mp-api-monitor/blob/95e0f31/src/types.ts#L33)
+[src/types.ts:35](https://github.com/mpx-ecology/mp-api-monitor/blob/008278c/src/types.ts#L35)

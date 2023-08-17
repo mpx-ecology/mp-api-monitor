@@ -16,4 +16,4 @@
 
 #### Defined in
 
-[src/types.ts:72](https://github.com/mpx-ecology/mp-api-monitor/blob/95e0f31/src/types.ts#L72)
+[src/types.ts:72](https://github.com/mpx-ecology/mp-api-monitor/blob/008278c/src/types.ts#L72)

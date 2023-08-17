@@ -1,6 +1,6 @@
 {
   "name": "@mpxjs/mp-api-monitor",
-  "version": "0.0.9",
+  "version": "0.0.10",
   "description": "mini program api invoking monitor",
   "main": "dist/index.esm.js",
   "module": "dist/index.esm.js",
@@ -12,6 +12,7 @@
     "lint": "eslint . --ext .js --ext .ts",
     "fix": "eslint . --fix --ext .js --ext .ts",
     "docs": "typedoc",
+    "watch-docs": "typedoc --watch",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "files": [

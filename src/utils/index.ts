@@ -1,5 +1,7 @@
 import type { ComponentIns, PageInfo, ContextInfo, RecordData, GroupData } from '../types'
-
+/**
+ * 传入字符串获取字节长度
+ */
 export function byteLength(str: string) {
   let s = str.length
   for (let i = str.length - 1; i >= 0; i--) {

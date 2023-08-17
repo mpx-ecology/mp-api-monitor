@@ -221,12 +221,12 @@ const syncListMap = syncList.reduce((acc, cur) => {
   acc[cur] = true;
   return acc;
 }, {});
-function isSync(key, config) {
+function isSync(key) {
   return syncListMap[key] || /^get\w*Manager$/.test(key) || // 获取manager的api
   /^create\w*Context$/.test(key) || // 创建上下文相关api
   /^(on|off)/.test(key) || // 以 on* 或 off开头的方法
   /\w+Sync$/.test(key) || // 以Sync结尾的方法
-  config.isAsync && config.isAsync.includes(key);
+  customSyncList && customSyncList.includes(key);
 }
 function __call_trace(depth) {
   const result = [];
@@ -254,29 +254,34 @@ function __call_trace(depth) {
   return result;
 }
 let proxyed = false;
-function proxyAPI(config) {
+let stackConfig = null;
+function setStackConfig(config) {
+  if (config) {
+    console.warn("Recording stack info will increase performance overhead, do not enable it unless necessary!");
+    stackConfig = config === true ? {} : config;
+  } else {
+    stackConfig = null;
+  }
+}
+let customSyncList = null;
+function setCustomSyncList(list) {
+  customSyncList = list;
+}
+function proxyAPI() {
   if (!envObj || proxyed)
     return;
-  let stackConfig = {};
-  if (config.needStack) {
-    stackConfig = typeof config.needStack === "boolean" ? {} : config.needStack;
-    console.warn("Recording stack info will significantly increase performance overhead, do not enable it unless necessary!");
-  }
   Object.keys(envObj).forEach((type) => {
-    if (config.include && !config.include.includes(type) || config.exclude && config.exclude.includes(type))
-      return;
     const original = envObj[type];
     if (typeof original !== "function")
       return;
-    const sync = isSync(type, config);
-    let needStack = false;
-    if (config.needStack) {
-      if (stackConfig.include && !stackConfig.include.includes(type) || stackConfig.exclude && stackConfig.exclude.includes(type)) ; else {
-        needStack = true;
-      }
-    }
+    const sync = isSync(type);
     const value = function(...args) {
-      const stackInfo = needStack ? __call_trace(stackConfig.depth) : [];
+      let stackInfo = [];
+      if (stackConfig) {
+        if (stackConfig.include && !stackConfig.include.includes(type) || stackConfig.exclude && stackConfig.exclude.includes(type)) ; else {
+          stackInfo = __call_trace(stackConfig.depth);
+        }
+      }
       let recordData = {
         type,
         startTime: +/* @__PURE__ */ new Date()
@@ -508,12 +513,18 @@ var __publicField = (obj, key, value) => {
 initDataGen();
 class APIMonitor {
   constructor(config) {
+    /** @internal */
     __publicField(this, "recordData", /* @__PURE__ */ new Map());
-    __publicField(this, "isActive", false);
+    /** @internal */
     __publicField(this, "preWarningRules", /* @__PURE__ */ new Map());
+    /** @internal */
     __publicField(this, "postWarningRules", /* @__PURE__ */ new Map());
+    /** @internal */
     __publicField(this, "config");
+    /** @internal */
     __publicField(this, "dataCount", 0);
+    /** @internal */
+    __publicField(this, "isActive", false);
     this.config = Object.assign({
       recordSetData: true,
       recordAPI: true
@@ -523,20 +534,24 @@ class APIMonitor {
       proxySetData();
     }
     if (this.config.recordAPI) {
-      proxyAPI(typeof this.config.recordAPI === "boolean" ? {} : this.config.recordAPI);
+      proxyAPI();
     }
   }
-  clearData() {
-    this.recordData.clear();
-  }
+  /**
+   * 开始录制，传递 {clear} 为true会先执行 {@link clearData}
+   */
   startRecord(clear) {
     if (clear)
       this.clearData();
     this.isActive = true;
   }
+  /**
+   * 结束录制
+   */
   endRecord() {
     this.isActive = false;
   }
+  /** @internal */
   checkWarningRules(type, stage = "pre") {
     const warningRules = this.getWarningRules(type, stage);
     const recordData = this.getRecordData(type);
@@ -546,6 +561,23 @@ class APIMonitor {
       });
     }
   }
+  /**
+   * 添加报警规则，报警规则可以通过 {@link getCountRule} 等帮助函数快速生成，也可以基于recordData完全自定义。
+   * @example
+   * ```ts
+   * // getLocation 和 getSystemInfoSync 100ms 内不应该调用超过2次
+   * monitor.addWarningRule([
+   *   'getLocation',
+   *   'getSystemInfoSync'
+   * ], getCountRule({
+   *   count: 2,
+   *   duration: 100,
+   *   onWarning(msg, recordData) {
+   *     console.error(msg, recordData)
+   *   }
+   * }))
+   * ```
+   */
   addWarningRule(types, rule, stage = "pre") {
     if (typeof types === "string")
       types = [types];
@@ -557,11 +589,30 @@ class APIMonitor {
       rules.push(rule);
     });
   }
+  /** @internal */
   getWarningRules(type, stage = "pre") {
     const warningRulesMap = stage === "pre" ? this.preWarningRules : this.postWarningRules;
     return warningRulesMap.get(type);
   }
+  /** @internal */
+  filterRecordData(data) {
+    const type = data.type;
+    if (type === "setData") {
+      return !!this.config.recordSetData;
+    }
+    const recordAPI = this.config.recordAPI;
+    if (recordAPI) {
+      const config = typeof recordAPI === "boolean" ? {} : recordAPI;
+      if (config.include && !config.include.includes(type) || config.exclude && config.exclude.includes(type)) ; else {
+        return true;
+      }
+    }
+    return false;
+  }
+  /** @internal */
   addRecordData(data) {
+    if (!this.filterRecordData(data))
+      return;
     if (this.config.dataLimit) {
       this.dataCount++;
       if (this.dataCount > this.config.dataLimit)
@@ -576,22 +627,44 @@ class APIMonitor {
     }
     dataQueue.push(data);
   }
+  /** @internal */
   updateMeta(type, updater) {
     const recordData = this.getRecordData(type);
     if (recordData)
       updater(recordData.meta);
   }
+  /**
+   * 返回当前录制的全量recordData
+   */
   getAllRecordData() {
     return this.recordData;
   }
+  /**
+   * 返回当前录制的全量recordData的类型数组，可传入 {exclude} 过滤特定类型
+   */
   getAllRecordDataTypes(exclude = []) {
     return [...this.recordData.keys()].filter((key) => !exclude.includes(key));
   }
+  /**
+   * 返回类型为 {type} 的recordData
+   */
   getRecordData(type) {
     if (!type)
       throw new Error("Arg [type] must be passed, such as monitor.getRecordData('request'), you can also check valid type string by monitor.getAllRecordDataTypes().");
     return this.recordData.get(type);
   }
+  /**
+   * 根据传入的 {types} 数组对recordData进行分组统计，可以通过第二个参数自定义统计的过滤、分组和排序逻辑
+   * @example
+   * ```ts
+   * // 对setData进行分组统计，根据所属组件进行分组，根据发送数据大小进行排序
+   * const info = monitor.getStatistics(['setData'], {
+   *   groupBy: (data) => data.contextInfo?.is || 'unknown',
+   *   sortBy: (data) => data.size
+   * })
+   * console.log(info)
+   * ```
+   */
   getStatistics(types = [], { filter = filterTrue, groupBy = groupByType, sortBy = sortByCount } = {}) {
     const groupMap = /* @__PURE__ */ new Map();
     types.forEach((type) => {
@@ -619,6 +692,9 @@ class APIMonitor {
     });
     return [...groupMap.values()].sort((a, b) => sortBy(b) - sortBy(a));
   }
+  /**
+   * 在内部调用 {@link getStatistics} 分别对setData、request和其余API进行分组统计获取数据摘要
+   */
   getSummary() {
     const { config } = this;
     const summary = {};
@@ -647,6 +723,15 @@ class APIMonitor {
     }
     return summary;
   }
+  /**
+   * 清除全量recordData
+   */
+  clearData() {
+    this.recordData.clear();
+  }
+  /**
+   * 销毁monitor实例
+   */
   destroy() {
     this.clearData();
     this.preWarningRules.clear();
@@ -656,4 +741,4 @@ class APIMonitor {
   }
 }
 
-export { APIMonitor, byteLength, getCountRule, getDataGenerators, getErrorRule, getParallelismRule, getResultSizeRule, getRouteParallelismRule, getSizeRule, setDataGenerator };
+export { APIMonitor, byteLength, getCountRule, getErrorRule, getParallelismRule, getResultSizeRule, getRouteParallelismRule, getSizeRule, setCustomSyncList, setDataGenerator, setStackConfig };

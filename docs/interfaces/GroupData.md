@@ -8,8 +8,8 @@
 
 - [count](GroupData.md#count)
 - [duration](GroupData.md#duration)
-- [resultSize](GroupData.md#resultsize)
 - [size](GroupData.md#size)
+- [resultSize](GroupData.md#resultsize)
 
 ## Properties
 
@@ -19,7 +19,7 @@
 
 #### Defined in
 
-[src/types.ts:76](https://github.com/mpx-ecology/mp-api-monitor/blob/95e0f31/src/types.ts#L76)
+[src/types.ts:76](https://github.com/mpx-ecology/mp-api-monitor/blob/008278c/src/types.ts#L76)
 
 ___
 
@@ -29,17 +29,7 @@ ___
 
 #### Defined in
 
-[src/types.ts:77](https://github.com/mpx-ecology/mp-api-monitor/blob/95e0f31/src/types.ts#L77)
-
-___
-
-### resultSize
-
-• **resultSize**: `number`
-
-#### Defined in
-
-[src/types.ts:79](https://github.com/mpx-ecology/mp-api-monitor/blob/95e0f31/src/types.ts#L79)
+[src/types.ts:77](https://github.com/mpx-ecology/mp-api-monitor/blob/008278c/src/types.ts#L77)
 
 ___
 
@@ -49,4 +39,14 @@ ___
 
 #### Defined in
 
-[src/types.ts:78](https://github.com/mpx-ecology/mp-api-monitor/blob/95e0f31/src/types.ts#L78)
+[src/types.ts:78](https://github.com/mpx-ecology/mp-api-monitor/blob/008278c/src/types.ts#L78)
+
+___
+
+### resultSize
+
+• **resultSize**: `number`
+
+#### Defined in
+
+[src/types.ts:79](https://github.com/mpx-ecology/mp-api-monitor/blob/008278c/src/types.ts#L79)

@@ -1,6 +1,6 @@
 import { getEnvObj, getEnv } from './utils'
 import { addRecordData, updateMeta, checkWarningRules, getDataGenerators } from './monitor'
-import type { IAnyObject, RecordAPIConfig, StackConfig, RecordData } from './types'
+import type { IAnyObject, StackConfig, RecordData } from './types'
 
 const envObj = getEnvObj()
 const env = getEnv()
@@ -39,13 +39,13 @@ const syncListMap = syncList.reduce<IAnyObject>((acc, cur) => {
   return acc
 }, {})
 
-function isSync(key: string, config: RecordAPIConfig) {
+function isSync(key: string) {
   return syncListMap[key] ||
     /^get\w*Manager$/.test(key) || // 获取manager的api
     /^create\w*Context$/.test(key) || // 创建上下文相关api
     /^(on|off)/.test(key) || // 以 on* 或 off开头的方法
     /\w+Sync$/.test(key) ||// 以Sync结尾的方法
-    (config.isAsync && config.isAsync.includes(key))
+    (customSyncList && customSyncList.includes(key))
 }
 
 function __call_trace(depth?: number) {
@@ -73,41 +73,48 @@ function __call_trace(depth?: number) {
 
 let proxyed = false
 
-export function proxyAPI(config: RecordAPIConfig) {
+let stackConfig: StackConfig | null = null
+/**
+ * 设置是否在API recordData中生成stack信息，开启时会有一定额外开销，建议配合include/exclude局部开启，传递false则关闭。
+ */
+export function setStackConfig(config: StackConfig | boolean) {
+  if (config) {
+    console.warn('Recording stack info will increase performance overhead, do not enable it unless necessary!')
+    stackConfig = config === true ? {} : config
+  } else {
+    stackConfig = null
+  }
+}
+
+let customSyncList: string[] | null = null
+/**
+ * 自定义设置同步API list，list中的API将被作为同步方法进行录代理录制，一般情况下不用设置。
+ */
+export function setCustomSyncList(list: string[]) {
+  customSyncList = list
+}
+
+export function proxyAPI() {
   if (!envObj || proxyed) return
 
-  let stackConfig: StackConfig = {}
-
-  if (config.needStack) {
-    stackConfig = typeof config.needStack === 'boolean' ? {} : config.needStack
-    console.warn('Recording stack info will significantly increase performance overhead, do not enable it unless necessary!')
-  }
-
   Object.keys(envObj).forEach((type: keyof typeof envObj) => {
-    if (
-      (config.include && !config.include.includes(type)) ||
-      (config.exclude && config.exclude.includes(type))
-    ) return
-
     const original = envObj[type]
     if (typeof original !== 'function') return
 
-    const sync = isSync(type, config)
-
-    let needStack = false
-    if (config.needStack) {
-      if (
-        (stackConfig.include && !stackConfig.include.includes(type)) ||
-        (stackConfig.exclude && stackConfig.exclude.includes(type))
-      ) {
-        // skip stack
-      } else {
-        needStack = true
-      }
-    }
+    const sync = isSync(type)
 
     const value = function (this: typeof envObj, ...args: any[]) {
-      const stackInfo: string[] = needStack ? __call_trace(stackConfig.depth) : []
+      let stackInfo: string[] = []
+      if (stackConfig) {
+        if (
+          (stackConfig.include && !stackConfig.include.includes(type)) ||
+          (stackConfig.exclude && stackConfig.exclude.includes(type))
+        ) {
+          // skip stack
+        } else {
+          stackInfo = __call_trace(stackConfig.depth)
+        }
+      }
       let recordData: RecordData = {
         type,
         startTime: +new Date()

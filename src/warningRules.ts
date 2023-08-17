@@ -23,7 +23,25 @@ export interface SizeCfg extends WarningCfg {
   count?: number
   duration?: number
 }
-
+/**
+ * 获取API调用次数报警规则
+ * @example
+ * ```ts
+ * // 获取报警规则，API在100ms内不应该调用超过2次
+ * const countRule = getCountRule({
+ *   count: 2,
+ *   duration: 100,
+ *   onWarning(msg, recordDataQueue) {
+ *     console.error(msg, recordDataQueue)
+ *   }
+ * })
+ * // 对 getLocation 和 getSystemInfoSync 应用该报警规则
+ * monitor.addWarningRule([
+ *   'getLocation',
+ *   'getSystemInfoSync'
+ * ], countRule)
+ * ```
+ */
 export function getCountRule(countCfg: CountCfg): WarningRule {
   return function (recordData) {
     const now = +new Date()
@@ -38,7 +56,21 @@ export function getCountRule(countCfg: CountCfg): WarningRule {
     }
   }
 }
-
+/**
+ * 获取异步API调用并发数报警规则
+ * @example
+ * ```ts
+ * // 调用并发数不应该超过10
+ * const parallelismRule = getParallelismRule({
+ *   parallelism: 10,
+ *   onWarning(msg, recordData) {
+ *     console.error(msg, recordData)
+ *   }
+ * })
+ * // 对 request 应用该规则
+ * monitor.addWarningRule('request', parallelismRule)
+ * ```
+ */
 export function getParallelismRule(parallelismCfg: ParallelismCfg): WarningRule {
   return function (recordData) {
     const item = recordData[recordData.length - 1]
@@ -56,7 +88,25 @@ const routeTypes = [
   'navigateTo',
   'navigateBack'
 ]
-
+/**
+ * 获取路由API调用并发数报警规则
+ * @example
+ * ```ts
+ * // 路由API调用并发数不应该超过1，对所有路由API共同生效
+ * monitor.addWarningRule([
+ *   'switchTab',
+ *   'reLaunch',
+ *   'redirectTo',
+ *   'navigateTo',
+ *   'navigateBack'
+ * ], getRouteParallelismRule({
+ *   parallelism: 1,
+ *   onWarning(msg, recordData) {
+ *     console.error(msg, recordData)
+ *   }
+ * }))
+ * ```
+ */
 export function getRouteParallelismRule(parallelismCfg: ParallelismCfg): WarningRule {
   return function (recordData, monitor) {
     let parallelism = 0
@@ -72,7 +122,19 @@ export function getRouteParallelismRule(parallelismCfg: ParallelismCfg): Warning
     }
   }
 }
-
+/**
+ * 获取API调用报错报警规则，不传递errno则对于所有错误都报警
+ * @example
+ * ```ts
+ * // request返回错误码600000时报警
+ * monitor.addWarningRule('request', getErrorRule({
+ *   errno: 600000,
+ *   onWarning(msg, recordData) {
+ *     console.error(msg, recordData)
+ *   }
+ * }))
+ * ```
+ */
 export function getErrorRule(errorCfg: ErrorCfg): WarningRule {
   const rule: WarningRule = function (recordData) {
     const item = recordData[recordData.length - 1]
@@ -84,7 +146,20 @@ export function getErrorRule(errorCfg: ErrorCfg): WarningRule {
   rule.stage = 'post'
   return rule
 }
-
+/**
+ * 获取API发送数据size报警规则，可以通过count限定一定次数内累积size不超过阈值，也可以通过duration限定一定时间内累积size不超过阈值
+ * @example
+ * ```ts
+ * // setData单次发送数据大小不应该超过10K
+ * monitor.addWarningRule('setData', getSizeRule({
+ *   size: 10000,
+ *   count: 1,
+ *   onWarning(msg, recordData) {
+ *     console.error(msg, recordData)
+ *   }
+ * }))
+ * ```
+ */
 export function getSizeRule(sizeCfg: SizeCfg): WarningRule {
   return function (recordData) {
     const now = +new Date()
@@ -102,7 +177,20 @@ export function getSizeRule(sizeCfg: SizeCfg): WarningRule {
     }
   }
 }
-
+/**
+ * 获取API接收数据size报警规则，可以通过count限定一定次数内累积size不超过阈值，也可以通过duration限定一定时间内累积size不超过阈值
+ * @example
+ * ```ts
+ * // request在1s内累积接收数据大小不应该超过100K
+ * monitor.addWarningRule('request', getResultSizeRule({
+ *   size: 100000,
+ *   duration: 1000,
+ *   onWarning(msg, recordData) {
+ *     console.error(msg, recordData)
+ *   }
+ * }))
+ * ```
+ */
 export function getResultSizeRule(sizeCfg: SizeCfg): WarningRule {
   const rule: WarningRule = function (recordData) {
     const now = +new Date()

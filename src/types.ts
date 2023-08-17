@@ -36,9 +36,9 @@ export interface InitialConfig {
 }
 
 export interface Summary {
-  setData?: IAnyObject
-  request?: IAnyObject
-  api?: IAnyObject
+  setData?: GroupData[]
+  request?: GroupData[]
+  api?: GroupData[]
 }
 
 export type Stage = 'pre' | 'post'
@@ -104,8 +104,6 @@ export interface StatisticConfig {
 export interface RecordAPIConfig {
   include?: string[]
   exclude?: string[]
-  isAsync?: string[]
-  needStack?: StackConfig | boolean
 }
 
 export interface StackConfig {

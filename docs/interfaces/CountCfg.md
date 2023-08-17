@@ -12,31 +12,11 @@
 
 ### Properties
 
+- [onWarning](CountCfg.md#onwarning)
 - [count](CountCfg.md#count)
 - [duration](CountCfg.md#duration)
-- [onWarning](CountCfg.md#onwarning)
 
 ## Properties
-
-### count
-
-• **count**: `number`
-
-#### Defined in
-
-[src/warningRules.ts:9](https://github.com/mpx-ecology/mp-api-monitor/blob/95e0f31/src/warningRules.ts#L9)
-
-___
-
-### duration
-
-• `Optional` **duration**: `number`
-
-#### Defined in
-
-[src/warningRules.ts:10](https://github.com/mpx-ecology/mp-api-monitor/blob/95e0f31/src/warningRules.ts#L10)
-
-___
 
 ### onWarning
 
@@ -63,4 +43,24 @@ ___
 
 #### Defined in
 
-[src/warningRules.ts:5](https://github.com/mpx-ecology/mp-api-monitor/blob/95e0f31/src/warningRules.ts#L5)
+[src/warningRules.ts:5](https://github.com/mpx-ecology/mp-api-monitor/blob/008278c/src/warningRules.ts#L5)
+
+___
+
+### count
+
+• **count**: `number`
+
+#### Defined in
+
+[src/warningRules.ts:9](https://github.com/mpx-ecology/mp-api-monitor/blob/008278c/src/warningRules.ts#L9)
+
+___
+
+### duration
+
+• `Optional` **duration**: `number`
+
+#### Defined in
+
+[src/warningRules.ts:10](https://github.com/mpx-ecology/mp-api-monitor/blob/008278c/src/warningRules.ts#L10)

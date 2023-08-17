@@ -6,19 +6,19 @@
 
 ### Properties
 
-- [depth](StackConfig.md#depth)
-- [exclude](StackConfig.md#exclude)
 - [include](StackConfig.md#include)
+- [exclude](StackConfig.md#exclude)
+- [depth](StackConfig.md#depth)
 
 ## Properties
 
-### depth
+### include
 
-• `Optional` **depth**: `number`
+• `Optional` **include**: `string`[]
 
 #### Defined in
 
-[src/types.ts:114](https://github.com/mpx-ecology/mp-api-monitor/blob/95e0f31/src/types.ts#L114)
+[src/types.ts:110](https://github.com/mpx-ecology/mp-api-monitor/blob/008278c/src/types.ts#L110)
 
 ___
 
@@ -28,14 +28,14 @@ ___
 
 #### Defined in
 
-[src/types.ts:113](https://github.com/mpx-ecology/mp-api-monitor/blob/95e0f31/src/types.ts#L113)
+[src/types.ts:111](https://github.com/mpx-ecology/mp-api-monitor/blob/008278c/src/types.ts#L111)
 
 ___
 
-### include
+### depth
 
-• `Optional` **include**: `string`[]
+• `Optional` **depth**: `number`
 
 #### Defined in
 
-[src/types.ts:112](https://github.com/mpx-ecology/mp-api-monitor/blob/95e0f31/src/types.ts#L112)
+[src/types.ts:112](https://github.com/mpx-ecology/mp-api-monitor/blob/008278c/src/types.ts#L112)
