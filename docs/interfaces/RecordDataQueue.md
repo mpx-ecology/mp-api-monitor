@@ -1311,4 +1311,4 @@ ___
 
 #### Defined in
 
-[src/types.ts:68](https://github.com/mpx-ecology/mp-api-monitor/blob/008278c/src/types.ts#L68)
+[src/types.ts:68](https://github.com/mpx-ecology/mp-api-monitor/blob/master/src/types.ts#L68)

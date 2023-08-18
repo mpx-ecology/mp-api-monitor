@@ -88,7 +88,7 @@ setDataGenerator('setData', (args, recordData) => {
 
 #### Defined in
 
-[src/monitor.ts:60](https://github.com/mpx-ecology/mp-api-monitor/blob/008278c/src/monitor.ts#L60)
+[src/monitor.ts:60](https://github.com/mpx-ecology/mp-api-monitor/blob/master/src/monitor.ts#L60)
 
 ___
 
@@ -110,7 +110,7 @@ ___
 
 #### Defined in
 
-[src/proxyAPI.ts:80](https://github.com/mpx-ecology/mp-api-monitor/blob/008278c/src/proxyAPI.ts#L80)
+[src/proxyAPI.ts:80](https://github.com/mpx-ecology/mp-api-monitor/blob/master/src/proxyAPI.ts#L80)
 
 ___
 
@@ -132,7 +132,7 @@ ___
 
 #### Defined in
 
-[src/proxyAPI.ts:93](https://github.com/mpx-ecology/mp-api-monitor/blob/008278c/src/proxyAPI.ts#L93)
+[src/proxyAPI.ts:93](https://github.com/mpx-ecology/mp-api-monitor/blob/master/src/proxyAPI.ts#L93)
 
 ___
 
@@ -154,7 +154,7 @@ ___
 
 #### Defined in
 
-[src/utils/index.ts:5](https://github.com/mpx-ecology/mp-api-monitor/blob/008278c/src/utils/index.ts#L5)
+[src/utils/index.ts:5](https://github.com/mpx-ecology/mp-api-monitor/blob/master/src/utils/index.ts#L5)
 
 ___
 
@@ -194,7 +194,7 @@ monitor.addWarningRule([
 
 #### Defined in
 
-[src/warningRules.ts:45](https://github.com/mpx-ecology/mp-api-monitor/blob/008278c/src/warningRules.ts#L45)
+[src/warningRules.ts:45](https://github.com/mpx-ecology/mp-api-monitor/blob/master/src/warningRules.ts#L45)
 
 ___
 
@@ -230,7 +230,7 @@ monitor.addWarningRule('request', parallelismRule)
 
 #### Defined in
 
-[src/warningRules.ts:74](https://github.com/mpx-ecology/mp-api-monitor/blob/008278c/src/warningRules.ts#L74)
+[src/warningRules.ts:74](https://github.com/mpx-ecology/mp-api-monitor/blob/master/src/warningRules.ts#L74)
 
 ___
 
@@ -270,7 +270,7 @@ monitor.addWarningRule([
 
 #### Defined in
 
-[src/warningRules.ts:110](https://github.com/mpx-ecology/mp-api-monitor/blob/008278c/src/warningRules.ts#L110)
+[src/warningRules.ts:110](https://github.com/mpx-ecology/mp-api-monitor/blob/master/src/warningRules.ts#L110)
 
 ___
 
@@ -304,7 +304,7 @@ monitor.addWarningRule('request', getErrorRule({
 
 #### Defined in
 
-[src/warningRules.ts:138](https://github.com/mpx-ecology/mp-api-monitor/blob/008278c/src/warningRules.ts#L138)
+[src/warningRules.ts:138](https://github.com/mpx-ecology/mp-api-monitor/blob/master/src/warningRules.ts#L138)
 
 ___
 
@@ -339,7 +339,7 @@ monitor.addWarningRule('setData', getSizeRule({
 
 #### Defined in
 
-[src/warningRules.ts:163](https://github.com/mpx-ecology/mp-api-monitor/blob/008278c/src/warningRules.ts#L163)
+[src/warningRules.ts:163](https://github.com/mpx-ecology/mp-api-monitor/blob/master/src/warningRules.ts#L163)
 
 ___
 
@@ -374,7 +374,7 @@ monitor.addWarningRule('request', getResultSizeRule({
 
 #### Defined in
 
-[src/warningRules.ts:194](https://github.com/mpx-ecology/mp-api-monitor/blob/008278c/src/warningRules.ts#L194)
+[src/warningRules.ts:194](https://github.com/mpx-ecology/mp-api-monitor/blob/master/src/warningRules.ts#L194)
 
 ## Type Aliases
 
@@ -384,7 +384,7 @@ monitor.addWarningRule('request', getResultSizeRule({
 
 #### Defined in
 
-[src/types.ts:3](https://github.com/mpx-ecology/mp-api-monitor/blob/008278c/src/types.ts#L3)
+[src/types.ts:3](https://github.com/mpx-ecology/mp-api-monitor/blob/master/src/types.ts#L3)
 
 ___
 
@@ -394,4 +394,4 @@ ___
 
 #### Defined in
 
-[src/types.ts:44](https://github.com/mpx-ecology/mp-api-monitor/blob/008278c/src/types.ts#L44)
+[src/types.ts:44](https://github.com/mpx-ecology/mp-api-monitor/blob/master/src/types.ts#L44)

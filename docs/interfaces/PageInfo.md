@@ -17,7 +17,7 @@
 
 #### Defined in
 
-[src/types.ts:23](https://github.com/mpx-ecology/mp-api-monitor/blob/008278c/src/types.ts#L23)
+[src/types.ts:23](https://github.com/mpx-ecology/mp-api-monitor/blob/master/src/types.ts#L23)
 
 ___
 
@@ -27,4 +27,4 @@ ___
 
 #### Defined in
 
-[src/types.ts:24](https://github.com/mpx-ecology/mp-api-monitor/blob/008278c/src/types.ts#L24)
+[src/types.ts:24](https://github.com/mpx-ecology/mp-api-monitor/blob/master/src/types.ts#L24)

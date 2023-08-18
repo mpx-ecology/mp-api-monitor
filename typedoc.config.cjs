@@ -6,5 +6,6 @@ module.exports = {
   readme: 'none',
   entryDocument: 'index.md',
   sort: ['source-order'],
-  groupOrder: ['Classes', 'Functions', '*']
+  groupOrder: ['Classes', 'Functions', '*'],
+  gitRevision: 'master'
 }

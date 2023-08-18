@@ -20,4 +20,4 @@
 
 #### Defined in
 
-[src/types.ts:95](https://github.com/mpx-ecology/mp-api-monitor/blob/008278c/src/types.ts#L95)
+[src/types.ts:95](https://github.com/mpx-ecology/mp-api-monitor/blob/master/src/types.ts#L95)

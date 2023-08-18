@@ -47,7 +47,7 @@ setTimeout(() => {
 
 #### Defined in
 
-[src/index.ts:59](https://github.com/mpx-ecology/mp-api-monitor/blob/008278c/src/index.ts#L59)
+[src/index.ts:59](https://github.com/mpx-ecology/mp-api-monitor/blob/master/src/index.ts#L59)
 
 ## Methods
 
@@ -69,7 +69,7 @@ setTimeout(() => {
 
 #### Defined in
 
-[src/index.ts:76](https://github.com/mpx-ecology/mp-api-monitor/blob/008278c/src/index.ts#L76)
+[src/index.ts:76](https://github.com/mpx-ecology/mp-api-monitor/blob/master/src/index.ts#L76)
 
 ___
 
@@ -85,7 +85,7 @@ ___
 
 #### Defined in
 
-[src/index.ts:83](https://github.com/mpx-ecology/mp-api-monitor/blob/008278c/src/index.ts#L83)
+[src/index.ts:83](https://github.com/mpx-ecology/mp-api-monitor/blob/master/src/index.ts#L83)
 
 ___
 
@@ -125,7 +125,7 @@ monitor.addWarningRule([
 
 #### Defined in
 
-[src/index.ts:113](https://github.com/mpx-ecology/mp-api-monitor/blob/008278c/src/index.ts#L113)
+[src/index.ts:113](https://github.com/mpx-ecology/mp-api-monitor/blob/master/src/index.ts#L113)
 
 ___
 
@@ -141,7 +141,7 @@ ___
 
 #### Defined in
 
-[src/index.ts:172](https://github.com/mpx-ecology/mp-api-monitor/blob/008278c/src/index.ts#L172)
+[src/index.ts:172](https://github.com/mpx-ecology/mp-api-monitor/blob/master/src/index.ts#L172)
 
 ___
 
@@ -163,7 +163,7 @@ ___
 
 #### Defined in
 
-[src/index.ts:178](https://github.com/mpx-ecology/mp-api-monitor/blob/008278c/src/index.ts#L178)
+[src/index.ts:178](https://github.com/mpx-ecology/mp-api-monitor/blob/master/src/index.ts#L178)
 
 ___
 
@@ -185,7 +185,7 @@ ___
 
 #### Defined in
 
-[src/index.ts:184](https://github.com/mpx-ecology/mp-api-monitor/blob/008278c/src/index.ts#L184)
+[src/index.ts:184](https://github.com/mpx-ecology/mp-api-monitor/blob/master/src/index.ts#L184)
 
 ___
 
@@ -219,7 +219,7 @@ console.log(info)
 
 #### Defined in
 
-[src/index.ts:200](https://github.com/mpx-ecology/mp-api-monitor/blob/008278c/src/index.ts#L200)
+[src/index.ts:200](https://github.com/mpx-ecology/mp-api-monitor/blob/master/src/index.ts#L200)
 
 ___
 
@@ -235,7 +235,7 @@ ___
 
 #### Defined in
 
-[src/index.ts:230](https://github.com/mpx-ecology/mp-api-monitor/blob/008278c/src/index.ts#L230)
+[src/index.ts:230](https://github.com/mpx-ecology/mp-api-monitor/blob/master/src/index.ts#L230)
 
 ___
 
@@ -251,7 +251,7 @@ ___
 
 #### Defined in
 
-[src/index.ts:259](https://github.com/mpx-ecology/mp-api-monitor/blob/008278c/src/index.ts#L259)
+[src/index.ts:259](https://github.com/mpx-ecology/mp-api-monitor/blob/master/src/index.ts#L259)
 
 ___
 
@@ -267,4 +267,4 @@ ___
 
 #### Defined in
 
-[src/index.ts:265](https://github.com/mpx-ecology/mp-api-monitor/blob/008278c/src/index.ts#L265)
+[src/index.ts:265](https://github.com/mpx-ecology/mp-api-monitor/blob/master/src/index.ts#L265)
