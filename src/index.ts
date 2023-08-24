@@ -12,7 +12,7 @@ import type {
   RecordMeta,
   StatisticConfig,
   GroupData,
-  Summary,
+  Summary
 } from './types'
 
 export * from './warningRules'
@@ -35,7 +35,7 @@ export type {
   SortBy,
   DataGen,
   Stage,
-  IAnyObject,
+  IAnyObject
 } from './types'
 
 initDataGen()
@@ -69,7 +69,7 @@ export class APIMonitor {
   constructor(config?: InitialConfig) {
     this.config = Object.assign({
       recordSetData: true,
-      recordAPI: true,
+      recordAPI: true
     }, config)
 
     addMonitor(this)
@@ -173,7 +173,7 @@ export class APIMonitor {
     if (!this.recordData.has(data.type)) {
       this.recordData.set(data.type, dataQueue)
       dataQueue.meta = {
-        parallelism: 0,
+        parallelism: 0
       }
     }
     dataQueue.push(data)
@@ -222,7 +222,7 @@ export class APIMonitor {
   getStatistics(types: string[] = [], {
     filter = filterTrue,
     groupBy = groupByType,
-    sortBy = sortByCount,
+    sortBy = sortByCount
   }: StatisticConfig = {}) {
     const groupMap = new Map<string, GroupData>()
 
@@ -237,7 +237,7 @@ export class APIMonitor {
             count: 0,
             size: 0,
             resultSize: 0,
-            duration: 0,
+            duration: 0
           }
           if (!groupMap.has(key)) groupMap.set(key, groupData)
           groupData.count++
@@ -260,7 +260,7 @@ export class APIMonitor {
     if (config.recordSetData) {
       summary.setData = this.getStatistics(['setData'], {
         groupBy: (data) => data.contextInfo?.is || 'unknown',
-        sortBy: (data) => data.size,
+        sortBy: (data) => data.size
       })
     }
 
@@ -271,7 +271,7 @@ export class APIMonitor {
             if (!data.url) return 'unknown'
             const idx = data.url.indexOf('?')
             return idx === -1 ? data.url : data.url.slice(0, idx)
-          },
+          }
         })
       }
 
