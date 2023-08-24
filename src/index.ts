@@ -3,7 +3,17 @@ import { proxySetData } from './proxySetData'
 import { proxyAPI, setCustomSyncList, setStackConfig } from './proxyAPI'
 import { filterTrue, groupByType, sortByCount, byteLength } from './utils'
 import { initDataGen } from './dataGen'
-import type { RecordDataQueue, WarningRule, InitialConfig, Stage, RecordData, RecordMeta, StatisticConfig, GroupData, Summary } from './types'
+import type {
+  RecordDataQueue,
+  WarningRule,
+  InitialConfig,
+  Stage,
+  RecordData,
+  RecordMeta,
+  StatisticConfig,
+  GroupData,
+  Summary,
+} from './types'
 
 export * from './warningRules'
 export { setDataGenerator, setCustomSyncList, setStackConfig, byteLength }
@@ -59,7 +69,7 @@ export class APIMonitor {
   constructor(config?: InitialConfig) {
     this.config = Object.assign({
       recordSetData: true,
-      recordAPI: true
+      recordAPI: true,
     }, config)
 
     addMonitor(this)
@@ -70,6 +80,7 @@ export class APIMonitor {
       proxyAPI()
     }
   }
+
   /**
    * 开始录制，传递 {clear} 为true会先执行 {@link clearData}
    */
@@ -77,12 +88,14 @@ export class APIMonitor {
     if (clear) this.clearData()
     this.isActive = true
   }
+
   /**
    * 结束录制
    */
-   endRecord() {
+  endRecord() {
     this.isActive = false
   }
+
   /** @internal */
   checkWarningRules(type: string, stage: Stage = 'pre') {
     const warningRules = this.getWarningRules(type, stage)
@@ -93,6 +106,7 @@ export class APIMonitor {
       })
     }
   }
+
   /**
    * 添加报警规则，报警规则可以通过 {@link getCountRule} 等帮助函数快速生成，也可以基于recordData完全自定义。
    * @example
@@ -119,11 +133,13 @@ export class APIMonitor {
       rules.push(rule)
     })
   }
+
   /** @internal */
   getWarningRules(type: string, stage: Stage = 'pre') {
     const warningRulesMap = stage === 'pre' ? this.preWarningRules : this.postWarningRules
     return warningRulesMap.get(type)
   }
+
   /** @internal */
   filterRecordData(data: RecordData) {
     const type = data.type
@@ -144,6 +160,7 @@ export class APIMonitor {
     }
     return false
   }
+
   /** @internal */
   addRecordData(data: RecordData) {
     if (!this.filterRecordData(data)) return
@@ -156,28 +173,32 @@ export class APIMonitor {
     if (!this.recordData.has(data.type)) {
       this.recordData.set(data.type, dataQueue)
       dataQueue.meta = {
-        parallelism: 0
+        parallelism: 0,
       }
     }
     dataQueue.push(data)
   }
+
   /** @internal */
   updateMeta(type: string, updater: (meta: RecordMeta) => void) {
     const recordData = this.getRecordData(type)
     if (recordData) updater(recordData.meta)
   }
+
   /**
    * 返回当前录制的全量recordData
    */
   getAllRecordData() {
     return this.recordData
   }
+
   /**
    * 返回当前录制的全量recordData的类型数组，可传入 {exclude} 过滤特定类型
    */
   getAllRecordDataTypes(exclude: Array<string> = []) {
     return [...this.recordData.keys()].filter((key) => !exclude.includes(key))
   }
+
   /**
    * 返回类型为 {type} 的recordData
    */
@@ -185,6 +206,7 @@ export class APIMonitor {
     if (!type) throw new Error('Arg [type] must be passed, such as monitor.getRecordData(\'request\'), you can also check valid type string by monitor.getAllRecordDataTypes().')
     return this.recordData.get(type)
   }
+
   /**
    * 根据传入的 {types} 数组对recordData进行分组统计，可以通过第二个参数自定义统计的过滤、分组和排序逻辑
    * @example
@@ -197,7 +219,11 @@ export class APIMonitor {
    * console.log(info)
    * ```
    */
-  getStatistics(types: string[] = [], { filter = filterTrue, groupBy = groupByType, sortBy = sortByCount }: StatisticConfig = {}) {
+  getStatistics(types: string[] = [], {
+    filter = filterTrue,
+    groupBy = groupByType,
+    sortBy = sortByCount,
+  }: StatisticConfig = {}) {
     const groupMap = new Map<string, GroupData>()
 
     types.forEach((type) => {
@@ -211,7 +237,7 @@ export class APIMonitor {
             count: 0,
             size: 0,
             resultSize: 0,
-            duration: 0
+            duration: 0,
           }
           if (!groupMap.has(key)) groupMap.set(key, groupData)
           groupData.count++
@@ -224,6 +250,7 @@ export class APIMonitor {
 
     return [...groupMap.values()].sort((a, b) => sortBy(b) - sortBy(a))
   }
+
   /**
    * 在内部调用 {@link getStatistics} 分别对setData、request和其余API进行分组统计获取数据摘要
    */
@@ -233,7 +260,7 @@ export class APIMonitor {
     if (config.recordSetData) {
       summary.setData = this.getStatistics(['setData'], {
         groupBy: (data) => data.contextInfo?.is || 'unknown',
-        sortBy: (data) => data.size
+        sortBy: (data) => data.size,
       })
     }
 
@@ -244,7 +271,7 @@ export class APIMonitor {
             if (!data.url) return 'unknown'
             const idx = data.url.indexOf('?')
             return idx === -1 ? data.url : data.url.slice(0, idx)
-          }
+          },
         })
       }
 
@@ -253,12 +280,14 @@ export class APIMonitor {
     }
     return summary
   }
+
   /**
    * 清除全量recordData
    */
   clearData() {
     this.recordData.clear()
   }
+
   /**
    * 销毁monitor实例
    */
