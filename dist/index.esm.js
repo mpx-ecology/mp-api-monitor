@@ -55,10 +55,12 @@ function byteLength(str) {
 }
 function getPageInfo(context) {
   const currentPages = getCurrentPages();
-  if (context.$page) {
+  const env = getEnv();
+  if (env === "ali") {
+    const currentPage = context.$page || context;
     return {
-      index: currentPages.indexOf(context.$page),
-      route: context.$page.route
+      index: currentPages.indexOf(currentPage),
+      route: currentPage.route
     };
   } else {
     for (let i = 0; i < currentPages.length; i++) {
@@ -78,15 +80,15 @@ function getContextInfo(context) {
   };
 }
 function getEnvObj() {
-  if (wx && typeof wx.canIUse === "function")
+  if (typeof wx !== "undefined" && typeof wx.canIUse === "function")
     return wx;
-  if (my && typeof my.canIUse === "function")
+  if (typeof my !== "undefined" && typeof my.canIUse === "function")
     return my;
 }
 function getEnv() {
-  if (wx && typeof wx.canIUse === "function")
+  if (typeof wx !== "undefined" && typeof wx.canIUse === "function")
     return "wx";
-  if (my && typeof my.canIUse === "function")
+  if (typeof my !== "undefined" && typeof my.canIUse === "function")
     return "ali";
 }
 function filterTrue() {
@@ -665,7 +667,11 @@ class APIMonitor {
    * console.log(info)
    * ```
    */
-  getStatistics(types = [], { filter = filterTrue, groupBy = groupByType, sortBy = sortByCount } = {}) {
+  getStatistics(types = [], {
+    filter = filterTrue,
+    groupBy = groupByType,
+    sortBy = sortByCount
+  } = {}) {
     const groupMap = /* @__PURE__ */ new Map();
     types.forEach((type) => {
       const recordData = this.getRecordData(type);
