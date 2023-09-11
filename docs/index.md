@@ -154,7 +154,7 @@ ___
 
 #### Defined in
 
-[src/utils/index.ts:6](https://github.com/mpx-ecology/mp-api-monitor/blob/master/src/utils/index.ts#L6)
+[src/utils/index.ts:7](https://github.com/mpx-ecology/mp-api-monitor/blob/master/src/utils/index.ts#L7)
 
 ___
 

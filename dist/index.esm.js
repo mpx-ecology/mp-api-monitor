@@ -40,6 +40,7 @@ function getDataGenerators(type, stage = "pre") {
   return dataGeneratorMap.get(type);
 }
 
+const env$3 = getEnv();
 function byteLength(str) {
   let s = str.length;
   for (let i = str.length - 1; i >= 0; i--) {
@@ -55,8 +56,7 @@ function byteLength(str) {
 }
 function getPageInfo(context) {
   const currentPages = getCurrentPages();
-  const env = getEnv();
-  if (env === "ali") {
+  if (env$3 === "ali") {
     const currentPage = context.$page || context;
     return {
       index: currentPages.indexOf(currentPage),
@@ -102,7 +102,7 @@ function sortByCount(groupData) {
 }
 
 let proxyed$1 = false;
-const env$1 = getEnv();
+const env$2 = getEnv();
 const type = "setData";
 function doProxy(context) {
   const setDataRaw = context.setData;
@@ -166,7 +166,7 @@ function proxySetData() {
   const ComponentRaw = Component;
   const proxyComponent = function(...args) {
     const options = args[0];
-    if (env$1 === "wx") {
+    if (env$2 === "wx") {
       const behavior = Behavior({
         created() {
           doProxy(this);
@@ -174,7 +174,7 @@ function proxySetData() {
       });
       const rawBehaviors = options.behaviors;
       options.behaviors = rawBehaviors ? [behavior].concat(rawBehaviors) : [behavior];
-    } else if (env$1 === "ali") {
+    } else if (env$2 === "ali") {
       const mixinObj = {
         onInit() {
           doProxy(this);
@@ -190,7 +190,7 @@ function proxySetData() {
 }
 
 const envObj = getEnvObj();
-const env = getEnv();
+const env$1 = getEnv();
 const syncList = [
   "clearStorage",
   "hideToast",
@@ -336,7 +336,7 @@ function proxyAPI() {
         };
         opt.fail = function(...args2) {
           const res = args2[0];
-          if (env === "ali") {
+          if (env$1 === "ali") {
             recordData.errno = res.error;
             recordData.errMsg = res.errorMessage;
           } else {
@@ -366,6 +366,7 @@ function proxyAPI() {
   proxyed = true;
 }
 
+const env = getEnv();
 function initDataGen() {
   setDataGenerator("request", (args) => {
     const config = args[0];
@@ -387,8 +388,8 @@ function initDataGen() {
     };
   }, "pre");
   setDataGenerator("setStorageSync", (args) => {
-    const key = args[0];
-    const data = args[1];
+    const key = env === "ali" ? args[0].key : args[0];
+    const data = env === "ali" ? args[0].data : args[1];
     return {
       size: byteLength(key) + byteLength(JSON.stringify(data))
     };
@@ -400,7 +401,7 @@ function initDataGen() {
     };
   }, "post");
   setDataGenerator("getStorageSync", (args) => {
-    const data = args[0];
+    const data = env === "ali" ? args[0].data : args[0];
     return {
       resultSize: byteLength(JSON.stringify(data))
     };

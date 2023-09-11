@@ -1,8 +1,10 @@
 import { setDataGenerator } from './monitor'
-import { byteLength } from './utils'
+import { byteLength, getEnv } from './utils'
 import type { RequestConfig, RequestResult } from './types'
 
-export function initDataGen() {
+const env = getEnv()
+
+export function initDataGen () {
   setDataGenerator('request', (args) => {
     const config: RequestConfig = args[0]
     return {
@@ -26,8 +28,8 @@ export function initDataGen() {
   }, 'pre')
 
   setDataGenerator('setStorageSync', (args) => {
-    const key = args[0]
-    const data = args[1]
+    const key = env === 'ali' ? args[0].key : args[0]
+    const data = env === 'ali' ? args[0].data : args[1]
     return {
       size: byteLength(key) + byteLength(JSON.stringify(data))
     }
@@ -41,7 +43,7 @@ export function initDataGen() {
   }, 'post')
 
   setDataGenerator('getStorageSync', (args) => {
-    const data = args[0]
+    const data = env === 'ali' ? args[0].data : args[0]
     return {
       resultSize: byteLength(JSON.stringify(data))
     }

@@ -1,5 +1,6 @@
 import type { ComponentIns, PageInfo, ContextInfo, RecordData, GroupData, IAnyObject } from '../types'
 
+const env = getEnv()
 /**
  * 传入字符串获取字节长度
  */
@@ -16,7 +17,6 @@ export function byteLength (str: string) {
 
 function getPageInfo (context: ComponentIns): PageInfo | undefined {
   const currentPages = getCurrentPages()
-  const env = getEnv()
   if (env === 'ali') {
     const currentPage = context.$page || context as unknown as WechatMiniprogram.Page.Instance<IAnyObject, IAnyObject>
     return {
